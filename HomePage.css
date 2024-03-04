@@ -1,0 +1,84 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #76b852; /* Updated background color */
+    text-align: center; /* Center align the text for the whole body */
+
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Use full viewport height */
+    width: 100vw; /* Use full viewport width */
+}
+
+.conatainer1{
+    width: max-content;
+    height: max-content;
+    margin: 10px;
+    background-color: #fdfdfd;
+}
+
+h1 {
+    color: #fdfdfd; /* Example color to match your button theme */
+    margin-bottom: 280px; /* Adds some space between the title and the buttons */
+    font-size: 50px;
+}
+
+.login-container h2 {
+    color: #fff; /* White text to stand out against the potentially dark background */
+    margin: 20px 0; /* Adds some vertical space around the title */
+    text-align: center; /* Ensures the title is centered */
+    font-size: 24px; /* Adjust size as needed */
+}
+
+
+.login-container button {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #4CAF50; /* You can change this to black as well if desired */
+    background-color: #274111; /* Black background */
+    color: #fff; /* White text */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    line-height: 46px; /* Adjust for vertical centering */
+}
+
+.login-container button:hover {
+    background-color: #4CAF50; /* This will be the color on hover */
+    color: #fff; /* Keeping text color white on hover for contrast */
+}
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Adjust based on the container size */
+    max-width: 420px; /* Example, adjust based on your design */
+    margin-top: 20px;
+}
+
+.footer-links a {
+    color: #fff; /* White text for visibility on the dark background */
+    text-decoration: none; /* Removes underline from links */
+    font-size: 22px; /* Smaller font size for these links */
+}
+
+/* You may want to add :hover effects for the links */
+.footer-links a:hover {
+    text-decoration: underline; /* Adds underline on hover for better UX */
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+}
