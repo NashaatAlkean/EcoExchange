@@ -1,2 +1,0 @@
-# EcoExchange
-EcoExchange website project
