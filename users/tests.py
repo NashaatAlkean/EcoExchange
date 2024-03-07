@@ -14,11 +14,20 @@ class SeekerRegistrationTestCase(TestCase):
 
     def test_register_seeker_post_success(self):
         self.assertEqual(User.objects.count(), 0)
+         
+         # Example for test_register_seeker_post_success, include all necessary fields
         response = self.client.post(reverse('register-seeker'), {
-            'email': 'seeker@example.com',
-            'password': 'testpass123',
-            # Include other fields your form may require
-        })
+         'email': 'seeker@example.com',
+         'password1': 'testpass123',  # Assuming the form splits password
+         'password2': 'testpass123',  # Confirm password field
+    # Include other mandatory fields your form expects
+         })
+
+        # response = self.client.post(reverse('register-seeker'), {
+        #     'email': 'seeker@example.com',
+        #     'password': 'testpass123',
+        #     # Include other fields your form may require
+        # })
         self.assertEqual(User.objects.count(), 1)
         user = User.objects.first()
         self.assertTrue(user.is_seeker)

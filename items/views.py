@@ -32,26 +32,45 @@ def create_item(request):
         messages.warning(request,'You cant donate')
         return redirect('dashboard')
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Items
+from .form import UpdateItemForm
+
+def update_item(request, pk):
+    item = get_object_or_404(Items, pk=pk)  # This ensures item exists or returns a 404
+    if request.method == 'POST':
+        form = UpdateItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Your items info has updated.')
+            return redirect('dashboard')
+        else:
+            messages.warning(request, 'Something went wrong')
+            # When form is invalid, re-render the page with form errors.
+            context = {'form': form}
+            return render(request, 'items/update_ad.html', context)
+    else:
+        form = UpdateItemForm(instance=item)
+        context = {'form': form}
+        return render(request, 'items/update_ad.html', context)
 
     
             
-def update_item(request,pk):
-    item=Items.objects.get(pk=pk)
-    if request.method=='POST':
-        form=UpdateItemForm(request.POST,instance=item)
-        if form.is_valid():
-            form.save()
-            #var=form.save(commit=False)
-            #var.user =request.user
-            #var.save()
-            messages.info(request,'Your items info has updated.')
-            return redirect('dashboard')
-        else:
-            messages.warning(request,'something wont wrong')
-    else:
-        form=UpdateItemForm(instance=item)
-        context={'form':form}
-        return render(request,'items/update_ad.html',context)
-
-
-
+# def update_item(request,pk):
+#     item=Items.objects.get(pk=pk)
+#     if request.method=='POST':
+#         form=UpdateItemForm(request.POST,instance=item)
+#         if form.is_valid():
+#             form.save()
+#             #var=form.save(commit=False)
+#             #var.user =request.user
+#             #var.save()
+#             messages.info(request,'Your items info has updated.')
+#             return redirect('dashboard')
+#         else:
+#             messages.warning(request,'something wont wrong')
+#     else:
+#         form=UpdateItemForm(instance=item)
+#         context={'form':form}
+#         return render(request,'items/update_ad.html',context)
