@@ -1,0 +1,105 @@
+<!-- dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - EcoExchange{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #4CAF50;
+            padding: 10px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar li {
+            margin-right: 10px;
+        }
+        .navbar li:last-child {
+            margin-right: 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #3e8e41;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body> 
+    {% block content1 %}
+    
+
+    {% if request.user.is_donor %}
+
+    <div class="button-container">
+        <p>donor dashboard</p>
+        <a href="{% url 'create-add' %}" class="btn">Donate Item</a>
+        <a href="{% url 'dashboard' %}" class="btn">My Donations</a>
+    </div>
+    {% elif request.user.is_seeker %}
+    <section >
+        <p>seeker dashboard</p>
+        <div class="button-container">
+            <a href="{% url 'dashboard' %}" class="btn">My Orders</a>
+        </div>
+    {% endif %}
+    {% endblock %}
+
+
+    </section>
+</body>
+
+{% endblock %}
