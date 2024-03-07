@@ -64,3 +64,32 @@ class DonorRegistrationTestCase(TestCase):
         })
         self.assertFormError(response, 'form', 'password1', 'This field is required.')  # Assuming password validation
         self.assertEqual(User.objects.count(), 0)
+        
+class LoginUserTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='user@example.com', email='user@example.com', password='testpass123', is_active=True)
+
+    def test_login_user_post_success(self):
+        response = self.client.post(reverse('login'), {
+            'email': 'user@example.com',
+            'password': 'testpass123',
+        })
+        self.assertRedirects(response, reverse('dashboard'))
+
+    def test_login_user_post_fail(self):
+        response = self.client.post(reverse('login'), {
+            'email': 'user@example.com',
+            'password': 'wrongpass',
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertIn('something went wrong', str(messages[0]))
+
+class LogoutUserTestCase(TestCase):
+    def test_logout_user(self):
+        self.client.login(username='user@example.com', password='testpass123')
+        response = self.client.get(reverse('logout'))
+        self.assertRedirects(response, reverse('login'))
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertIn('your session has ended', str(messages[0]))
