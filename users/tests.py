@@ -92,6 +92,27 @@ class LoginUserTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/login/')
         self.assertContains(response, 'somthing went wrong')
+    def test_login_user_inactive_user(self): 
+    #בדיקת נתוני כניסה תקינים, משתמש לא פעיל
+        user = User.objects.create_user('test_user', 'test@example.com', 'password123')
+        user.is_active = False
+        user.save()
+        
+        
+    def test_login_user_valid_credentials(self):
+    
+    #בדיקת נתוני כניסה תקינים, הפניה לדף ראשי
+    
+      user = User.objects.create_user('test_user', 'test@example.com', 'password123')
+      data = {'email': 'test@example.com', 'password': 'password123'}
+      response = self.client.post('/login/', data=data)
+      self.assertEqual(response.status_code, 302)
+      self.assertRedirects(response, '/dashboard/')
+
+    # בדיקת כניסת המשתמש
+      self.assertTrue(self.client.login(username='test_user', password='password123'))
+
+
 
 class LogoutUserTestCase(TestCase):
     def test_logout_user(self):
