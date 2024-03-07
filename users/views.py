@@ -75,6 +75,9 @@ def login_user(request):
     else:
         return render(request,'users/login.html')
     
+
+
+    #11
 #user logout
 #user can logout so he end his session
 def logout_user(request):
