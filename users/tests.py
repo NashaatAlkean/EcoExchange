@@ -83,7 +83,15 @@ class LoginUserTestCase(TestCase):
         })
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
+        
         self.assertIn('something went wrong', str(messages[0]))
+    def test_login_user_invalid_credentials(self):
+    #בדיקת נתוני כניסה לא תקינים
+        data = {'email': 'invalid@email.com', 'password': 'wrongpassword'}
+        response = self.client.post('/login/', data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/')
+        self.assertContains(response, 'somthing went wrong')
 
 class LogoutUserTestCase(TestCase):
     def test_logout_user(self):
