@@ -4,6 +4,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from .form import RegisterUserForm
 from unittest import mock
+from django.test import RequestFactory
+from unittest.mock import patch
+from users.views import logout_user
 
 User = get_user_model()
 
@@ -130,6 +133,7 @@ class LoginUserTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/login/')
         self.assertContains(response, 'somthing went wrong')
+    
     def test_login_user_inactive_user(self): 
     #בדיקת נתוני כניסה תקינים, משתמש לא פעיל
         user = User.objects.create_user('test_user', 'test@example.com', 'password123')
@@ -158,3 +162,43 @@ class LogoutUserTestCase(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
         self.assertIn('your session has ended', str(messages[0]))
+
+# class LogoutUserTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_logout_user1(self):
+        # Create a request instance
+        request = self.factory.get('/logout/')
+
+        # Patch the logout function with a mock
+        with patch('myapp.views.logout') as mock_logout:
+            # Call the logout_user function
+            response = logout_user(request)
+
+            # Check that the logout function is called with the correct arguments
+            mock_logout.assert_called_once_with(request)
+
+        # Check that the correct message is added to the request
+        messages = get_messages(request)
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'your session has ended')
+
+    def test_invalid_logout_request(self):
+        # Make an invalid logout request (when user is not logged in)
+        response = self.client.get('/logout/')
+
+    # Assert the response
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/')
+        self.assertNotIn('_auth_user_id', self.client.session)
+        
+class LogoutUserTestCase(TestCase):
+    def test_logout_user_clears_session(self):
+        # Create a user and log them in
+        user = User.objects.create(username='testuser')
+        self.client.force_login(user)
+
+        # Set some session data
+        self.client.session['key1'] = 'value1'
+        self.client.session['key2'] = 'value2'
