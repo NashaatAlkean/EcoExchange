@@ -188,6 +188,7 @@ class LogoutUserTestCase(TestCase):
         # Make an invalid logout request (when user is not logged in)
         response = self.client.get('/logout/')
 
+
     # Assert the response
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/login/')
