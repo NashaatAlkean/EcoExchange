@@ -1,9 +1,10 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect
+
+# Create your views here.
+
 from django.contrib import messages
 from .models import Items
 from .form import DonateItemForm,UpdateItemForm
-
-
 
 #create item ad
 def create_item(request):
@@ -31,10 +32,10 @@ def create_item(request):
         messages.warning(request,'You cant donate')
         return redirect('dashboard')
 
-
-    
-            
-
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Items
+from .form import UpdateItemForm
 
 def update_item(request, pk):
     item = get_object_or_404(Items, pk=pk)  # This ensures item exists or returns a 404
@@ -73,4 +74,3 @@ def update_item(request, pk):
 #         form=UpdateItemForm(instance=item)
 #         context={'form':form}
 #         return render(request,'items/update_ad.html',context)
-

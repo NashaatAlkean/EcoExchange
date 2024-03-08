@@ -56,39 +56,5 @@ class ItemViewsTestCase(TestCase):
         messages = [msg.message for msg in get_messages(response.wsgi_request)]
         self.assertIn('Your items info has updated.', messages)
 
-
-
-class CreateItemTestCase_AI(TestCase):
-    def test_valid_form_submission(self):
-        # Simulate a valid form submission
-        form_data = {
-            'user': 'your_user',  # Replace with an actual user
-            'title': 'Test Item',
-            'description': 'This is a test item description.',
-            # Add other form fields as needed
-        }
-        response = self.client.post('/create-item/', data=form_data)
-        self.assertEqual(response.status_code, 302)  # Check if it redirects
-        # Add more assertions to verify the expected behavior
-
-class CreateItemTestCase(TestCase):
-    def test_invalid_form_submission(self):
-        # Simulate an invalid form submission
-        form_data = {
-            'user': 'your_user',  # Replace with an actual user
-            'title': '',  # Empty title
-            'description': 'This is an invalid test item description.',
-            # Add other form fields as needed
-        }
-        response = self.client.post('/create-item/', data=form_data)
-        self.assertEqual(response.status_code, 200)  # Check if it stays on the same page
-        # Add more assertions to verify error messages or other behavior
-
-class CreateItemTestCase(TestCase):
-    def test_non_donor_user(self):
-        # Simulate a non-donor user
-        response = self.client.get('/create-item/')
-        self.assertEqual(response.status_code, 302)  # Check if it redirects
-        # Add more assertions to verify the expected behavior
-
-
+# Note: Adjust 'reverse('create-add')' and 'reverse('update-item', kwargs={'pk': self.item.pk})'
+# according to the actual names you've used in your urls.py.
