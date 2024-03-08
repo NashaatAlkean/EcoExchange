@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from .form import RegisterUserForm
+from unittest import mock
 
 User = get_user_model()
 
@@ -22,12 +23,6 @@ class SeekerRegistrationTestCase(TestCase):
          'password2': 'testpass123',  # Confirm password field
     # Include other mandatory fields your form expects
          })
-
-        # response = self.client.post(reverse('register-seeker'), {
-        #     'email': 'seeker@example.com',
-        #     'password': 'testpass123',
-        #     # Include other fields your form may require
-        # })
         self.assertEqual(User.objects.count(), 1)
         user = User.objects.first()
         self.assertTrue(user.is_seeker)
@@ -73,7 +68,41 @@ class DonorRegistrationTestCase(TestCase):
         })
         self.assertFormError(response, 'form', 'password1', 'This field is required.')  # Assuming password validation
         self.assertEqual(User.objects.count(), 0)
+
+def test_register_donor_get(self):
+    """
+    בדיקת שיטת GET
+    """
+    response = self.client.get('/register-donor/')
+    self.assertEqual(response.status_code, 200) #1
+    self.assertTemplateUsed(response, 'users/register_donor.html') 
         
+def test_register_donor_invalid_form(self):
+    """
+    בדיקת טופס לא תקין
+    """
+    data = {'username': '', 'email': '', 'password1': '', 'password2': ''}
+    response = self.client.post('/register-donor/', data=data)
+    self.assertEqual(response.status_code, 302)
+    self.assertRedirects(response, '/register-donor/')
+    self.assertContains(response, 'something went wrong')
+def test_register_donor_save_error(self):
+    """
+    בדיקת יצירת משתמש עם שגיאה
+    """
+    # הדמיית שגיאה בעת שמירת משתמש
+    def mock_save(self, *args, **kwargs):
+        raise Exception('Save error')
+
+    with mock.patch.object(User, 'save', mock_save):
+        data = {'username': 'test_user', 'email': 'test@example.com',
+                'password1': 'password123', 'password2': 'password123'}
+        response = self.client.post('/register-donor/', data=data)
+
+    self.assertEqual(response.status_code, 302)
+    self.assertRedirects(response, '/register-donor/')
+    self.assertContains(response, 'something went wrong')
+
 class LoginUserTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='user@example.com', email='user@example.com', password='testpass123', is_active=True)
@@ -111,13 +140,11 @@ class LoginUserTestCase(TestCase):
     def test_login_user_valid_credentials(self):
     
     #בדיקת נתוני כניסה תקינים, הפניה לדף ראשי
-    
       user = User.objects.create_user('test_user', 'test@example.com', 'password123')
       data = {'email': 'test@example.com', 'password': 'password123'}
       response = self.client.post('/login/', data=data)
       self.assertEqual(response.status_code, 302)
       self.assertRedirects(response, '/dashboard/')
-
     # בדיקת כניסת המשתמש
       self.assertTrue(self.client.login(username='test_user', password='password123'))
 
