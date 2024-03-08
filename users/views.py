@@ -77,11 +77,15 @@ def login_user(request):
     
 
 
+    #11
 #user logout
+#user can logout so he end his session
 def logout_user(request):
     logout(request)
     messages.info(request,'your session has ended')
     return redirect('login')
+
+
 
 
             
