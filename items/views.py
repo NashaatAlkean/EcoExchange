@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 # Create your views here.
 
 from django.contrib import messages
-from .models import Items
+from .models import Items,RequestsItems
 from .form import DonateItemForm,UpdateItemForm
 
 #create item ad

@@ -14,4 +14,11 @@ class Items(models.Model):
 
     def __str__(self):
         return self.title
+    
 
+class RequestsItems(models.Model):
+    status_choices=(('Accepted','Accepted'),('Decliened','Decliened'))
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    item=models.ForeignKey(Items,on_delete=models.CASCADE)
+    #timestamp=models.DateTimeField(auto_now_add=True)
+    status=models.CharField(max_length=20,choices=status_choices)
