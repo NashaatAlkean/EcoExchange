@@ -68,7 +68,7 @@ def login_user(request):
             #     return redirect('donor-dashboard')
             # else:
             #     return redirect('login')
-            return redirect('dashboard')
+            return redirect('home')
         else:
             messages.warning(request,'somthing went wrong')
             return redirect('login')
@@ -81,7 +81,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.info(request,'your session has ended')
-    return redirect('login')
+    return redirect('home')
 
 
             

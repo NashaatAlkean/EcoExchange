@@ -10,7 +10,7 @@ from .form import DonateItemForm,UpdateItemForm
 def create_item(request):
     if request.user.is_donor:
         if request.method=='POST':
-            form=DonateItemForm(request.POST)
+            form=DonateItemForm(request.POST,request.FILES)
             # if len(request.FILES)!=0:
             #     form.image=request.FILES['image']
             if form.is_valid():
@@ -52,6 +52,14 @@ def update_item(request,pk):
         form=UpdateItemForm(instance=item)
         context={'form':form}
         return render(request,'items/update_ad.html',context)
+    
+
+def manage_items(request):
+    items=Items.objects.filter(user=request.user)
+    context={'items':items}
+    return render(request,'items/manage_items.html',context)
+    
+
 
 
 

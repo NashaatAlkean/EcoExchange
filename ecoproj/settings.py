@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'donoractive',
     'dashboard',
     'items',
+    'website',
     
     
 ]
@@ -134,8 +135,12 @@ AUTH_USER_MODEL='users.User'
 AUTHENTICATION_BACKENDS=['users.backends.EmailBackend']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL='/static/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT=BASE_DIR / 'media'
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static'),
+)
 
 

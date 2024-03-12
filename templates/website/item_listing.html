@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>EcoExchange</title>
+    <style>
+        /* Custom CSS for the page */
+        .product-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Add spacing below the image */
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .card-text {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .card-footer {
+            background-color: #f8f9fa; /* Light background color for footer */
+            border-top: 1px solid #dee2e6; /* Gray border on top */
+            padding: 10px 15px; /* Add padding for footer */
+            border-radius: 0 0 5px 5px; /* Rounded corners only at the bottom */
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h2 class="display-5 fw-bold">EcoExchange</h2>
+                <p class="col-md-8 fs-5 mt-3">All Available items</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% if items %}
+                {% for item in items %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                {% if item.image %}
+                                    <img class="product-img" src="{{ item.image.url }}" alt="Product Image">
+                                {% endif %}
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <a class="btn btn-primary btn-small" href="{% url 'item-details' item.pk %}">view detalies</a>
+
+                            </div>
+
+                            <div class="card-footer">
+                                <small class="text-muted">uploaded by : {{ item.user }}</small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No items available</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk5DRmi+ndsgnqIbdGIfjRk7EJCU2KlVvIT" crossorigin="anonymous">
+    </script>
+</body>
+{% endblock content %}

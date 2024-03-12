@@ -69,18 +69,33 @@
 </head>
 <body>
     <div class="navbar">
-        <h1>EcoExchange</h1>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="{%url 'logout'%}" class="btn-logout">Logout</a></li>
-            {% block content1 %}
-            {% endblock %}
+        <h1>        <a href="{% url 'home' %}">EcoExchange</a>
+        </h1>
+        {% if request.user.is_authenticated %}
+            <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+                <a href="{% url 'items-listing' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">All donations</a>
+                <a href="{% url 'dashboard' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox</a>
+                <a href="{% url 'dashboard' %}" class="text-lg text-teal-500 hover:text-teal-700">Get help</a>
+                {% if request.user.is_donor %}
+                    <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
+                    <a href="{% url 'manage-items' %}"  class="text-lg font-semibold hover:text-gray-500">My donations</a>
+                {% elif request.user.is_seeker %}
+                <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">My ordes</a>
+                {% endif %}
+                </div>
+            </nav>
+        {% else %}
+        <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+            <a href="{% url 'login' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Login</a>
+            <a href="{% url 'items-listing' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">All donations</a>
+            
+        </nav>
 
-        </ul>
+        {% endif %}
     </div>
     <div class="container">
-        <h2>Welcome to your Dashboard</h2>
-        <p>This is your personalized dashboard on EcoExchange.</p>
+        
         {% block content %}
         {% endblock %}
     </div>
