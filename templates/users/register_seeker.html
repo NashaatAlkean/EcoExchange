@@ -1,0 +1,29 @@
+<!-- login.html -->
+{% extends 'users/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Login - EcoExchange{% endblock %}
+
+{% block content %}
+<form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
+    {% csrf_token %}
+    <div class="form-floating mb-3">
+        <!--Email addres label-->
+        {% render_field form.email class="form-control" %}
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating mb-3">
+        {% render_field form.password1 class="form-control" %}
+        <!--password  label-->
+        <label for="floatingInput">Enter password</label>
+    </div>
+    <div class="form-floating mb-3">
+        {% render_field form.password2 class="form-control" %}
+        <!--the confirm password label-->
+        <label for="floatingInput">Confirm password</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+    <hr class="my-4">
+        <small class="text-muted">Alreday have an account? <a href="{% url 'login' %}">Sign in</a></small>
+</form>
+{% endblock content %}

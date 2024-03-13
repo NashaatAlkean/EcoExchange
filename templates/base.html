@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EcoExchange</title>
+    <style>
+        body  {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #4CAF50;
+            padding: 10px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar li {
+            margin-right: 10px;
+        }
+        .navbar li:last-child {
+            margin-right: 0;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #3e8e41;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .btn-logout {
+            background-color: #f44336;
+        }
+        .btn-logout:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>        <a href="{% url 'home' %}">EcoExchange</a>
+        </h1>
+        <h6>
+            <a href="{% url 'reviews' %}">Reviews</a>
+        </h6>
+            <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+                <a href="{% url 'items-listing' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">All donations</a>
+                <a href="{% url 'dashboard' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox</a>
+                <a href="{% url 'dashboard' %}" class="text-lg text-teal-500 hover:text-teal-700">Get help</a>
+                {% if request.user.is_donor %}
+                    <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
+                    <a href="{% url 'manage-items' %}"  class="text-lg font-semibold hover:text-gray-500">My donations</a>
+                {% elif request.user.is_seeker %}
+                <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">My orders</a>
+                {% endif %}
+                </div>
+            </nav>
+        {% else %}
+        <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+            <a href="{% url 'login' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Login</a>
+            <a href="{% url 'items-listing' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">All donations</a>
+        </nav>
+
+        {% endif %}
+    </div>
+    <div class="container">
+        
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
