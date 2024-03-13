@@ -15,3 +15,8 @@ def item_details(request,pk):
     item=Items.objects.get(pk=pk)
     context={'item':item}
     return render(request,'website/item_details.html',context)
+
+
+def reviews(request):
+    # Your view logic for handling reviews
+    return render(request, 'website/reviews.html')  # Assuming you have a template named reviews.html

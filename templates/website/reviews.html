@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+<!-- {% load static %}   Load the static tag at the top of the template 
+
+<link href="{% static 'website/custom.css' %}" rel="stylesheet" type="text/css"> -->
+
+
+<div class="container">
+    <header class="section-heading">
+        <h3>All Reviews</h3>
+    </header>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <form action="" method="POST" class="review-form">
+        {% csrf_token %}
+        <h5>Write Your Review:</h5>
+
+        <label>How Do You Rate Our website?</label>
+        <br>
+        <div class="rate">
+            <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10"
+                title="5"></label>
+            <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5"
+                class="half"></label>
+            <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+            <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5"
+                class="half"></label>
+            <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+            <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5"
+                class="half"></label>
+            <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+            <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5"
+                class="half"></label>
+            <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+            <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5"
+                class="half"></label>
+
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Review Title:</label>
+            <input type="text" class="form-control" id="subject" name="subject">
+        </div>
+        <div class="form-group">
+            <label for="review">Review:</label>
+            <textarea name="review" rows="4" class="form-control" id="review"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+        <br>
+    </form>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .section-heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .rate>input {
+        display: none;
+    }
+
+    .rate {
+        display: inline-block;
+        border: 0;
+    }
+
+    .rate>label {
+        float: right
+    }
+
+    .rate>label:before {
+        display: inline-block;
+        font-size: 1.1rem;
+        font-family: FontAwesome;
+        content: "\f005";
+        margin: 0;
+        padding: 0.3rem .2rem;
+        cursor: pointer;
+    }
+     /* Half star*/
+    .rate .half:before{
+        content:"\f089";
+        position: absolute;
+        padding-right: 0;
+
+    } 
+    /* click and hover*/
+    input:checked ~ label, label:hover ~ label{
+        color: #ffb503;
+    }
+
+    /* hover highlight*/
+    input:checked + label:hover, input:checked ~ label:hover, input:checked ~ label:hover ~ label,label:hover ~input:checked ~label{
+        color: #cc9000;
+    } 
+
+
+</style>
+
+
+{% endblock content %}
