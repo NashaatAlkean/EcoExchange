@@ -61,7 +61,7 @@ def manage_items(request):
     
 
 def request_item(request,pk):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_seeker:
         item=Items.objects.get(pk=pk)
         if RequestsItems.objects.filter(user=request.user,item=pk).exists():
             messages.warning(request,'Permesion denied')
@@ -77,6 +77,13 @@ def request_item(request,pk):
     else:
         messages.info(request,'Login to continue')
         return redirect('login')
+    
+
+def all_requests(request,pk):
+    item=Items.objects.get(pk=pk)
+    seekerq=item.requestsitems_set.all()
+    context={'item':item,'seekerq':seekerq}
+    return render(request,'items/all_requests.html',context)
 
 
 

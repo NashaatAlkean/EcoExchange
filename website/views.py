@@ -22,5 +22,4 @@ def item_details(request,pk):
 
 
 def reviews(request):
-    # Your view logic for handling reviews
-    return render(request, 'website/reviews.html')  # Assuming you have a template named reviews.html
+    return render(request, 'website/reviews.html') 
