@@ -17,16 +17,14 @@ class Catagory(models.Model):
 
 class Items(models.Model):
     item_type_choices=(
-        ('Clothing','Clothing'),
-        ('Books','Books'),
-        ('Toys','Toys'),
-        ('Games','Games'),
-        ('School Supplies','School Supplies'),
-        ('Electronics','Electronics'),
-        ('Furniture','Furniture'),
-        ('Pet Supplies','Pet Supplies'),
-        ('Medical Supplies','Medical Supplies'),
-        ('Seasonal Items','Seasonal Items'),
+        ('New','New'),
+        ('Like New','Like New'),
+        ('Good','Good'),
+        ('Fair','Fair'),
+        ('Acceptable','Acceptable'),
+        ('Well-loved','Well-loved'),
+        ('Damaged','Damaged'),
+        ('Broken','Brokens'),
 
 
 
