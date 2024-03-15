@@ -8,14 +8,19 @@
     <div class="p-3 mb-3 bg-light rounded-3 d-flex justify-content-between align-items-center">
         <div class="container-fluid py-3">
             <h2 class="mb-3 fw-bold">{{ item.title }}</h2>
+            {% if request.user.is_donor %}
+            <p><span class="text-danger">You are donor you cant request items</span></p>
+            {% endif %}
+
             {% if request.user.is_seeker %}
-            <a href="{% url 'conversation:new' item.pk %}" class="btn btn-primary btn-sm">Contact with donor</a>
+                {% if not has_req %}
+                <a href="{% url 'request-item' item.pk %}" class="btn btn-primary btn-sm">Request</a>
+                {% else %}
+                <p><span class="text-danger">You have already requested this item</span></p>
+                {% endif %}
+                <a href="{% url 'conversation:new' item.pk %}" class="btn btn-primary btn-sm">Contact with donor</a>
             {% endif %}
-            {% if not has_req %}
-            <a href="{% url 'request-item' item.pk %}" class="btn btn-primary btn-sm">Request</a>
-            {% else %}
-            <p><span class="text-danger">You have already requested this item</span></p>
-            {% endif %}
+            
             <p class="fs-6 mt-3 mb-0">Location: {{ item.location }}, {{ item.city }}</p>
             <p class="fs-6 mt-0 mb-0">Category: {{ item.catagory }}</p>
             <p class="fs-6 mt-0 mb-0">Status: {{ item.item_type }}</p>

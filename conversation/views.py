@@ -4,7 +4,6 @@ from .models import Conversation
 from .forms import ConversationMessageForm
 from django.contrib.auth.decorators import login_required
 
-
 @login_required
 def new_conversation(request,item_pk):
     item=get_object_or_404(Items,pk=item_pk)
