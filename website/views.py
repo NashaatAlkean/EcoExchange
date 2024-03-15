@@ -15,7 +15,7 @@ def items_listing(request):
     return render(request,'website/item_listing.html',context)
 
 def item_details(request,pk):
-    if RequestsItems.objects.filter(user=request.user,item=pk).exists():
+    if RequestsItems.objects.filter(user=request.user.id,item=pk).exists():
         has_req=True
     else:
         has_req=False

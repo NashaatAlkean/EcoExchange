@@ -1,52 +1,42 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <section>
-    <div clas="p-5 mb-4 bg-light rounded-3">
-        <div class="container-fluid py-5">
-            <h2 class="display-5 fw-bold">{{item.title}}</h2>
-            <p class="col-md-8-fs-6-mt-3">
-                Location:{{item.location}} | Is Available:{{item.is_available}}
-            </p>
-            {% if has_req == False %}
-            <a  href="{% url 'request-item' item.pk %}" class="btn btn-primary btn-lg" >Request</a>
-            {% else %}
-            <p><span class="text-danger">You have already request this item </span></p>
+    <div class="p-3 mb-3 bg-light rounded-3 d-flex justify-content-between align-items-center">
+        <div class="container-fluid py-3">
+            <h2 class="mb-3 fw-bold">{{ item.title }}</h2>
+            {% if request.user.is_seeker %}
+            <a href="{% url 'conversation:new' item.pk %}" class="btn btn-primary btn-sm">Contact with donor</a>
             {% endif %}
+            {% if not has_req %}
+            <a href="{% url 'request-item' item.pk %}" class="btn btn-primary btn-sm">Request</a>
+            {% else %}
+            <p><span class="text-danger">You have already requested this item</span></p>
+            {% endif %}
+            <p class="fs-6 mt-3 mb-0">Location: {{ item.location }}, {{ item.city }}</p>
+            <p class="fs-6 mt-0 mb-0">Category: {{ item.catagory }}</p>
+            <p class="fs-6 mt-0 mb-0">Status: {{ item.item_type }}</p>
+            <p class="fs-6 mt-0 mb-0">Posted: {{ item.updated_at|naturaltime }}</p>
+        </div>
+        <div>
+            <img src="{{ item.image.url }}" alt="Item Image" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
         </div>
     </div>
-
-
-
-    
-
+    <div class="p-3 mb-3 bg-light rounded-3">
+        <section>
+            <h5>Donor:</h5>
+            <p>{{ item.user }}</p>
+        </section>
+    </div>
+    <div class="p-3 mb-3 bg-light rounded-3">
+        <section>
+            <h5>Description:</h5>
+            <p>{{ item.descreption }}</p>
+        </section>
+    </div>
 </section>
-
-<div>
-    
-    <section>
-        <h5>Donor:</h5>
-        <p>
-            {{item.user}}
-        </p>
-    </section>
-
-
-</div><br>
-
-
-<div>
-    
-    <section>
-        <h5>description:</h5>
-        <p>
-            {{item.description}}
-        </p>
-    </section>
-
-
-</div><br>
 
 {% endblock content %}

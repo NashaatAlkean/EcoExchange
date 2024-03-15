@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'dashboard',
     'items',
     'website',
-    'django_filters'
+    'django_filters',
+    'conversation',
+    
 
 ]
 

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .inbox-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .conversation {
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .conversation:hover {
+        background-color: #e0e0e0;
+    }
+
+    .conversation img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+
+    .conversation-info {
+        flex-grow: 1;
+    }
+
+    .conversation-info p {
+        margin: 5px 0;
+    }
+
+    .conversation-info p strong {
+        font-weight: bold;
+    }
+
+    .conversation-info p.date {
+        color: #888;
+    }
+</style>
+
+<div class="inbox-container">
+    <h1 class="mb-6 text-3xl">Inbox</h1>
+
+    <div class="space-y-6">
+        {% for conversation in conversation %}
+            <a href="{% url 'conversation:detail' conversation.id %}" class="conversation">
+                <div>
+                    <img src="{{ conversation.item.image.url }}" alt="User Avatar">
+                </div>
+
+                <div class="conversation-info">
+                    {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+                            <p><strong>{{ member.email }}</strong> | {{ conversation.modified_at|naturaltime }}</p>
+                            <p>{{ conversation.item.title }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
