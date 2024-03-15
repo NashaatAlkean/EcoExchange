@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% load widget_tweaks %}
 
@@ -20,37 +21,24 @@
                     <h2 class="display-5-fw-bold">EcoExchange ,find and donate items for free(home page)</h2> <br>
                     <div class="card">
                         <div class="card-body">
-                            <form class="row gy-2 gx-3 align- items-center">
+                            <form class="row gy-2 gx-3 align-items-center" method="GET">
                                 <div class="col-sm-2">
-                                    <label class="visually-hidden" for="autoSizingInput">Name</label>
-                                    <input type="text" class="form-control" id="autosizingInput" placeholder="item-Keyword">
+                                    <label  for="autoSizingInput">Name</label>
+                                    {% render_field filter.form.title class="form-control" id="autosizingInput" placeholder="item-Keyword"%}
                                 </div>
                                 <div class="col-sm-3">
-                                    <label class="visually-hidden" for="autoSizingSelect">Select Location</label>
-                                    <select class="form-select" id="autoSizingSelect">
-                                        <option selected>Select Location</option>
-                                        <option value="1">One</option>
-                                        <option value="2" >Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
+                                    <label  for="autoSizingSelect">Select Location</label>
+                                    {% render_field filter.form.city class="form-select"%}
                                 </div>
                                 <div class="col-sm-3">
-                                    <label class="visually-hidden".for="autoSizingSelect">Choose Job Type</label>
-                                    <select class="form-select" id="autoSizingSelect">
-                                            <option selected>Choose item catagory</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                    </select>
+                                    <label  for="autoSizingSelect">Choose catagory</label>
+                                    {% render_field filter.form.catagory class="form-select"%}
+
                                 </div>
                                 <div class="col-sm-3">
-                                    <label class="visually-hidden".for="autoSizingSelect">Choose Job Type</label>
-                                    <select class="form-select" id="autoSizingSelect">
-                                            <option selected>Choose item industry</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                    </select>
+                                    <label for="autoSizingSelect">Choose  status</label>
+                                    {% render_field filter.form.item_type class="form-select"%}
+
                                 </div>
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-primary">Search</button>
@@ -61,53 +49,29 @@
                     <p class="col-md-8-fs-6-mt-3">
                                 Welcome to EcoExchange website! Search to get or donate your next item.
                     </p>
-                    <button class="btn btn-outline-primary"-type="button">More items</button>
+                    <a href="{% url 'items-listing' %}" class="btn btn-outline-primary" type="button">More items</a>
                 </div>
             </div>
 </section>
         
-<div class="row-row-cols-1-row-cols md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider-card with supporting-text below as a natural lead-in to</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last-updated 3 mins-ago</small>
-                    </div>
-                </div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for item in filter.qs %}
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.category }}</p>
+                <p class="card-text">{{ item.item_type }}</p>
+                <p class="card-text">{{ item.city }}</p>
             </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Card-title</h5>
-                        <p class="card-text" >This card has supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3-mins-ago</small>
-                    </div>
-                </div>
+            <div class="card-footer">
+                <small class="text-muted">{{ item.updated_at|naturaltime }}</small>
             </div>
         </div>
-        <div class="row align-items-center">
-            <div class="col-md-10 mx-auto col-1g-2 mt-4">
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-</div>
-</body>>
+    </div>
+    {% endfor %}
+</div><br>
+
+</body>
 
 {% endblock content %}

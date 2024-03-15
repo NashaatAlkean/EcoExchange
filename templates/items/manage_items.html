@@ -36,8 +36,8 @@
                     {%else%}
                     <td><span class="badge bg-warning">Not Active</span></td>
                     {%endif%}
-                    <td>tdsg</td>
-                    <td>{{item.requestsitems_set.all.count}}</td>
+                    <td><a href="{% url 'update_ad' item.pk %}"><small>Update add</small></a></td>
+                    <td>{{item.requestsitems_set.all.count}} <a href="{% url 'all_requests' item.pk %}"><small>View all</small></a></td>
 
 
                 </tr>

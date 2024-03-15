@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}New Conversation{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .submit-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <h1 class="mb-6 text-3xl">New Conversation</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        
+        <div class="space-y-4">
+            {{ form.as_p }}
+        </div>
+
+        {% if form.errors or form.non_field_errors %}
+            <div class="error-message">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="submit-button">Send</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<div class="card mx-auto" style="width: 76rem;">
+
+    <div class="card-body">
+        <h5 class="card-title mb-3">All requests for your donation :{{item.title}} 
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Request Date</th>
+                    
+
+
+
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for seeker in seekerq %}
+                <tr>
+                    <td>{{seeker.user.email}}</td>
+                    <td>{{seeker.timestamp}}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+
+        </table>
+
+        </h5>
+
+    </div>
+
+
+
+</div>
+{% endblock content %}

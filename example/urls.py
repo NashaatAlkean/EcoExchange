@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/',include('users.urls')),
     path('dashboard/',include('dashboard.urls')),
     path('items/',include('items.urls')),
+    path('inbox/',include('conversation.urls')),
 
 
 

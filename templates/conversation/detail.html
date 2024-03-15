@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .chat-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+    }
+
+    .my-message {
+        background-color: #DBEAFE;
+        align-self: flex-end;
+    }
+
+    .other-message {
+        background-color: #F3F4F6;
+        align-self: flex-start;
+    }
+
+    .message p {
+        margin: 5px 0;
+    }
+
+    .message p strong {
+        font-weight: bold;
+    }
+
+    .message p.time {
+        font-size: 0.8rem;
+        color: #6B7280;
+    }
+
+    .message-form {
+        margin-top: 20px;
+    }
+
+    .message-form textarea {
+        width: calc(100% - 100px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+    }
+
+    .message-form button {
+        width: 100px;
+        padding: 10px;
+        background-color: #3B82F6;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .message-form button:hover {
+        background-color: #2563EB;
+    }
+</style>
+
+<div class="chat-container">
+    <h1 class="mb-6 text-3xl">Chat</h1>
+
+    <div class="space-y-6">
+        {% for message in conversation.messages.all %}
+            <div class="message {% if message.created_by == request.user %}my-message{% else %}other-message{% endif %}">
+                <p><strong>{{ message.created_by.email }}</strong></p>
+                <p>{{ message.content }}</p>
+                <p class="time">{{ message.created_at|naturaltime }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form method="post" action="." class="message-form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+{% endblock %}

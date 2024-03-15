@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load widget_tweaks %}
+{% load humanize %}
+
 
 <head>
     <meta charset="utf-8">
@@ -69,13 +71,13 @@
 
                     </div>
 
-                    <div class="card-footer">
-                        <small class="text-muted">uploaded by : {{ item.user }}</small>
+                            <div class="card-footer">
+                                <small class="text-muted">created: {{item.updated_at|naturaltime}}</small>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
+                {% endfor %}
             {% else %}
             <p>No items available</p>
             {% endif %}
