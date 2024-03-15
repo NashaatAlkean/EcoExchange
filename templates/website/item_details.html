@@ -20,7 +20,35 @@
                 {% endif %}
                 <a href="{% url 'conversation:new' item.pk %}" class="btn btn-primary btn-sm">Contact with donor</a>
             {% endif %}
-            
+            <button id="getUrlButton" class="btn btn-primary btn-lg">Share The Link</button>
+            <p id="currentUrl"></p>
+
+            <script>
+                document.getElementById("getUrlButton").addEventListener("click", function () {
+                    var currentUrl = window.location.href;
+                    document.getElementById("currentUrl").textContent = "Current URL: " + currentUrl;
+
+                    // Create a temporary input element
+                    var tempInput = document.createElement("input");
+                    tempInput.setAttribute("value", currentUrl);
+                    document.body.appendChild(tempInput);
+
+                    // Select the URL in the input element
+                    tempInput.select();
+                    tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+                    // Copy the URL to the clipboard
+                    document.execCommand("copy");
+
+                    // Remove the temporary input element
+                    document.body.removeChild(tempInput);
+
+                    // Provide user feedback (optional)
+                    alert("Link copied Now you can share the link!");
+                });
+
+
+            </script>
             <p class="fs-6 mt-3 mb-0">Location: {{ item.location }}, {{ item.city }}</p>
             <p class="fs-6 mt-0 mb-0">Category: {{ item.catagory }}</p>
             <p class="fs-6 mt-0 mb-0">Status: {{ item.item_type }}</p>
