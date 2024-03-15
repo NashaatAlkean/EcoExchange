@@ -11,7 +11,7 @@
         <h3>All Reviews</h3>
     </header>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <form action="" method="POST" class="review-form">
+    <form action="{% url 'submit_review' %}" method="POST" class="review-form">
         {% csrf_token %}
         <h5>Write Your Review:</h5>
 
@@ -32,22 +32,25 @@
             <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5"
                 class="half"></label>
             <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
-            <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5"
-                class="half"></label>
+            <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5"class="half"></label>
 
         </div>
-
-        <div class="form-group">
-            <label for="subject">Review Title:</label>
-            <input type="text" class="form-control" id="subject" name="subject">
-        </div>
-        <div class="form-group">
-            <label for="review">Review:</label>
-            <textarea name="review" rows="4" class="form-control" id="review"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Review</button>
         <br>
+        Review Title:
+        <input type="text" class="form-control" name="subject">
+        <br>
+        Review:
+        <textarea name="review"  rows="4" class="form-control"></textarea>
+        <br>
+        {% if user.is_authenticated %}
+        <input type="submit" value="Submit Review" class="btn btn-primary">
+        {%else%}
+        <p>You must be logged in to post a review <span><a href="{% url 'login'%}">Login Now</a></span></p> 
+        {%endif%}
+        <br>
+
     </form>
+
 </div>
 
 <style>

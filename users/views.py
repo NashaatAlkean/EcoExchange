@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
-from django.contrib import messages
+from django.contrib import messages 
 from django.contrib.auth import authenticate,login,logout
 from .models import User
-from .form import RegisterUserForm
+from .form import RegisterUserForm 
 from activatee.models import Activatee
 from donoractive.models import Donoractive
 #import our user model and our RegistercUsercForm
@@ -84,14 +84,6 @@ def logout_user(request):
     return redirect('home')
 
 
-            
-            
 
-
-
-
-
-
-
-    
  
+
