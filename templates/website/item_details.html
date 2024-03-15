@@ -20,14 +20,12 @@
                 {% endif %}
                 <a href="{% url 'conversation:new' item.pk %}" class="btn btn-primary btn-sm">Contact with donor</a>
             {% endif %}
-            <button id="getUrlButton" class="btn btn-primary btn-lg">Share The Link</button>
+            <button id="getUrlButton" class="btn btn-primary btn-sm">Share The Link</button>
             <p id="currentUrl"></p>
 
             <script>
                 document.getElementById("getUrlButton").addEventListener("click", function () {
                     var currentUrl = window.location.href;
-                    document.getElementById("currentUrl").textContent = "Current URL: " + currentUrl;
-
                     // Create a temporary input element
                     var tempInput = document.createElement("input");
                     tempInput.setAttribute("value", currentUrl);
