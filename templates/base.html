@@ -84,7 +84,7 @@
                     <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
                     <a href="{% url 'manage-items' %}"  class="text-lg font-semibold hover:text-gray-500">My donations</a>
                 {% elif request.user.is_seeker %}
-                <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">My orders</a>
+                <a href="{% url 'requested_items' %}" class="text-lg font-semibold hover:text-gray-500">My orders</a>
                 {% endif %}
                 </div>
             </nav>

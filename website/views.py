@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from items.models import Items,RequestsItems
-# Create your views here.
+from .filter import Itemfilter
+
 
 def home(request):
-    return render(request,'website/home.html')
+    filter=Itemfilter(request.GET,queryset=Items.objects.filter(is_available=True).order_by('-updated_at'))
+    context={'filter':filter}
+    return render(request,'website/home.html',context)
 
 
 def items_listing(request):
-    items=Items.objects.filter(is_available=True)
+    items=Items.objects.filter(is_available=True).order_by('-updated_at')
     context={'items':items}
     return render(request,'website/item_listing.html',context)
 

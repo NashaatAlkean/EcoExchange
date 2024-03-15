@@ -15,9 +15,9 @@
                 <tr>
                     <th scope="col">Item title</th>
                     <th scope="col">Location</th>
+                    <th scope="col">Catagory</th>
                     <th scope="col">status</th>
-                    <th scope="col">action</th>
-                    <th scope="col">number of requests</th>
+                    <th scope="col">Action</th>
 
 
 
@@ -27,18 +27,14 @@
             <tbody>
                 {% for item in items %}
                 <tr>
-                    <td>{{item.title}}</td>
-                    <td>{{item.location}}</td>
-                   
+                    <td>{{item.item.title}}</td>
+                    <td>{{item.item.city}}</td>
+                    <td>{{item.item.catagory}}</td>
+                    <td>{{item.item.item_type}}</td>
+                    <td> <a href="{% url 'item-details' item.item.pk %}"><small>View item</small></a></td>
+                    
 
-                    {% if item.is_available %}
-                    <td><span class="badge bg-success">Active</span></td>
-                    {%else%}
-                    <td><span class="badge bg-warning">Not Active</span></td>
-                    {%endif%}
-                    <td><a href="{% url 'update_ad' item.pk %}"><small>Update add</small></a></td>
-                    <td>{{item.requestsitems_set.all.count}} <a href="{% url 'all_requests' item.pk %}"><small>View all</small></a></td>
-
+                </tr>
 
                 </tr>
                 {% endfor %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<div class="row">
+    <div class="col-md-6">
+        <div class="card-mx-auto" style="width:-40rem;">
+            <div class="card-body">
+                <h5 class="card-title-mb-3">Update your ad </h5>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <div class="mb-3">
+                        <label for="exampleInputEmaill" class="form-label">Item Name</label>
+                            {% render_field form.title class="form-control "%}
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmaill" class="form-label">location</label>
+                            {% render_field form.location class="form-control "%}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmaill" class="form-label">City</label>
+                            {% render_field form.city class="form-control "%}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmaill" class="form-label">Catagory</label>
+                            {% render_field form.catagory class="form-control "%}
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmaill" class="form-label">Item Status</label>
+                            {% render_field form.item_type class="form-control "%}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmaill".class="form-label.">descreption</label>
+                            {% render_field form.descreption class="form-control "%}
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">image</label>
+                            {% render_field form.image class="form-control "%}
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">is this available</label>
+                            {% render_field form.is_available class="form-check-input"%}
+                    </div>
+                    <button href="{% url 'dashboard' %}" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% block default_messages %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" id="message">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endblock default_messages %}
+{% endblock content %}

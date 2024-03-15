@@ -9,6 +9,8 @@ urlpatterns=[
     path('manage-items/',views.manage_items,name='manage-items'),
     path('request-item/<int:pk>/',views.request_item,name='request-item'),
     path('all_requests/<int:pk>/',views.all_requests,name='all_requests'),
+    path('requested_items/',views.requested_items,name='requested_items'),
+
 
 
 ]

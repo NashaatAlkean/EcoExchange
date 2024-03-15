@@ -86,6 +86,10 @@ def all_requests(request,pk):
     return render(request,'items/all_requests.html',context)
 
 
+def requested_items(request):
+    items=RequestsItems.objects.filter(user=request.user)
+    context={'items':items}
+    return render(request,'items/requested_items.html',context)
 
 
 
