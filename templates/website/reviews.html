@@ -70,24 +70,28 @@
         padding: 0.3rem .2rem;
         cursor: pointer;
     }
-     /* Half star*/
-    .rate .half:before{
-        content:"\f089";
+
+    /* Half star*/
+    .rate .half:before {
+        content: "\f089";
         position: absolute;
         padding-right: 0;
 
-    } 
+    }
+
     /* click and hover*/
-    input:checked ~ label, label:hover ~ label{
+    input:checked~label,
+    label:hover~label {
         color: #ffb503;
     }
 
     /* hover highlight*/
-    input:checked + label:hover, input:checked ~ label:hover, input:checked ~ label:hover ~ label,label:hover ~input:checked ~label{
+    input:checked+label:hover,
+    input:checked~label:hover,
+    input:checked~label:hover~label,
+    label:hover~input:checked~label {
         color: #cc9000;
-    } 
-
-
+    }
 </style>
 
 <div class="container">

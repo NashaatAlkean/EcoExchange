@@ -6,7 +6,7 @@ from .models import Items
 class DonateItemForm(forms.ModelForm):
     class Meta:
         model=Items
-        fields=('user','title','location','descreption','image','is_available')
+        fields=('user','title','location','descreption','image','is_available','is_approved')
         labels={
             'user':'',
             'title':'',
@@ -14,10 +14,8 @@ class DonateItemForm(forms.ModelForm):
             'descreption':'',
             'image':'',
             'is_available':'',
+            'is_approved':'',
             #'updated_at':'',
-
-
-
         }
         exclude=('user',)
 

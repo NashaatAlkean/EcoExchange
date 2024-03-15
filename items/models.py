@@ -11,6 +11,7 @@ class Items(models.Model):
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     is_available=models.BooleanField(default=True)
     updated_at=models.DateTimeField(auto_now_add=True)
+    is_approved=models.BooleanField(default=False) # whether aproved by admin to show it for searchers or not
 
     def __str__(self):
         return self.title
