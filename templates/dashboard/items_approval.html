@@ -1,0 +1,26 @@
+
+
+<!DOCTYPE html>
+<html>
+
+{% load widget_tweaks %}
+<head>
+    <title>item Approval</title>
+</head>
+<body>
+    <h1>items to Approve</h1>
+    <ul>
+    {% for item in items %}
+    {% if item.is_approved %}
+        <li>
+            <img src="{{ picture.image.url }}" alt="Uploaded Picture">
+            <form method="POST" action="{% url 'approve_item'%}">
+                {% csrf_token %}
+                <button type="submit">Approve</button>
+            </form>
+        </li>
+    {endif}
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -17,25 +17,34 @@
             max-width: 250px;
             height: 250px;
             border-radius: 5px;
-            margin-bottom: 10px; /* Add spacing below the image */
+            margin-bottom: 10px;
+            /* Add spacing below the image */
         }
+
         .card-title {
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 5px;
         }
+
         .card-text {
             font-size: 1rem;
             margin-bottom: 5px;
         }
+
         .card-footer {
-            background-color: #f8f9fa; /* Light background color for footer */
-            border-top: 1px solid #dee2e6; /* Gray border on top */
-            padding: 10px 15px; /* Add padding for footer */
-            border-radius: 0 0 5px 5px; /* Rounded corners only at the bottom */
+            background-color: #f8f9fa;
+            /* Light background color for footer */
+            border-top: 1px solid #dee2e6;
+            /* Gray border on top */
+            padding: 10px 15px;
+            /* Add padding for footer */
+            border-radius: 0 0 5px 5px;
+            /* Rounded corners only at the bottom */
         }
     </style>
 </head>
+
 <body>
     <section>
         <div class="p-5 mb-4 bg-light rounded-3">
@@ -49,27 +58,29 @@
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% if items %}
-                {% for item in items %}
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                {% if item.image %}
-                                    <img class="product-img" src="{{ item.image.url }}" alt="Product Image">
-                                {% endif %}
-                                <h5 class="card-title">{{ item.title }}</h5>
-                                <a class="btn btn-primary btn-small" href="{% url 'item-details' item.pk %}">view detalies</a>
+            {% for item in items %}
+            {% if item.is_approved %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        {% if item.image %}
+                        <img class="product-img" src="{{ item.image.url }}" alt="Product Image">
+                        {% endif %}
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <a class="btn btn-primary btn-small" href="{% url 'item-details' item.pk %}">view detalies</a>
 
-                            </div>
-
-                            <div class="card-footer">
-                                <small class="text-muted">created: {{item.updated_at|naturaltime}}</small>
-
-                            </div>
-                        </div>
                     </div>
-                {% endfor %}
+
+                    <div class="card-footer">
+                        <small class="text-muted">created: {{item.updated_at|naturaltime}}</small>
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
             {% else %}
-                <p>No items available</p>
+            <p>No items available</p>
             {% endif %}
         </div>
     </div>
@@ -77,6 +88,6 @@
     <!-- Bootstrap JS (Optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk5DRmi+ndsgnqIbdGIfjRk7EJCU2KlVvIT" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 {% endblock content %}

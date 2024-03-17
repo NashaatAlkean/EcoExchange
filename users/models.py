@@ -8,5 +8,6 @@ class User(AbstractUser):
     is_seeker=models.BooleanField(default=False)
     # to_activate_seeker=models.BooleanField(default=False)
     # to_activate_donor=models.BooleanField(default=False)
+    is_superuser=models.BooleanField(default=False)
 
 

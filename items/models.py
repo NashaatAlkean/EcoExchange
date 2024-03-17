@@ -39,6 +39,9 @@ class Items(models.Model):
     catagory=models.ForeignKey(Catagory,on_delete=models.DO_NOTHING, null=True, blank=True)
     city=models.ForeignKey(City,on_delete=models.DO_NOTHING, null=True, blank=True)
     item_type=models.CharField(max_length=20,choices=item_type_choices,null=True)
+    is_approved=models.BooleanField(default=False) # whether aproved by admin to show it for searchers or not
+
+
 
     def __str__(self):
         return self.title

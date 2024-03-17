@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -91,7 +92,24 @@ def requested_items(request):
     context={'items':items}
     return render(request,'items/requested_items.html',context)
 
+@login_required
+def item_approval(request):
+    if not request.user.is_superuser:
+        return redirect('home')  # Redirect non-admin users
 
+    items_to_approve = Items.objects.filter(is_approved=False)
+    return render(request, 'website/items_approval.html', {'items': items_to_approve})
+
+
+@login_required
+def  approve_item(request, item_id):
+    if not request.user.is_superuser:
+        return redirect('home')  # Redirect non-admin users
+
+    item = Items.objects.get(id=item_id)
+    item.is_approved = True
+    item.save()
+    return redirect('item_approval')
 
 
 

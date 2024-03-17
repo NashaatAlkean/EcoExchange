@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from items.models import Items,RequestsItems
 from .filter import Itemfilter
 
+from django.contrib.auth.decorators import login_required
+# Create your views here.
 
 def home(request):
     filter=Itemfilter(request.GET,queryset=Items.objects.filter(is_available=True).order_by('-updated_at'))
@@ -27,6 +29,7 @@ def item_details(request,pk):
 def reviews(request):
     return render(request, 'website/reviews.html') 
 
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required  # Import login_required decorator
 from .forms import ReviewForm
@@ -47,3 +50,6 @@ def reviews(request):
 
     reviews_list = ReviewRating.objects.all() # Query reviews and order by creation time
     return render(request, 'website/reviews.html', {'form': form, 'reviews_list': reviews_list, 'user': request.user})
+
+def admin_homepage(request):
+    return render(request,'dashboard/admindashboard.html')

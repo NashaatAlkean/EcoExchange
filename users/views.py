@@ -1,8 +1,12 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+
+from items.models import Items
 from .models import User
 from .form import RegisterUserForm
+from django.contrib.auth.models import User as AuthUser
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 #import our user model and our RegistercUsercForm
 # Create your views here.
@@ -67,6 +71,9 @@ def login_user(request):
             #     return redirect('donor-dashboard')
             # else:
             #     return redirect('login')
+            if user.is_superuser:
+                return redirect('admin-homepage')  # Redirect to the view to select a user to impersonate
+
             return redirect('home')
         else:
             messages.warning(request,'somthing went wrong')
@@ -83,14 +90,23 @@ def logout_user(request):
     return redirect('home')
 
 
-            
-            
+
+# Define a decorator to check if the user is a superuser
+def is_superuser(user):
+    return user.is_superuser
 
 
-
-
-
+# @login_required
+# @user_passes_test(is_superuser)
+# def select_user_to_impersonate(request):
+#     users = AuthUser.objects.exclude(is_superuser=True)
+#     return render(request, 'dashboard\admindashboard.html', {'users': users})
 
 
     
- 
+
+# def approve_item(request, item_id):
+#     item = Items.objects.get(id=item_id)
+#     item.is_approved = True  
+#     item.save()
+#     return render('items_approval.html')
