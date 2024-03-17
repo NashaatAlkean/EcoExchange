@@ -11,6 +11,7 @@
     <h1>items to Approve</h1>
     <ul>
     {% for item in items %}
+    {% if item.is_approved %}
         <li>
             <img src="{{ picture.image.url }}" alt="Uploaded Picture">
             <form method="POST" action="{% url 'approve_item'%}">
@@ -18,6 +19,7 @@
                 <button type="submit">Approve</button>
             </form>
         </li>
+    {endif}
     {% endfor %}
     </ul>
 </body>

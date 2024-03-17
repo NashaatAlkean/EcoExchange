@@ -18,7 +18,7 @@
 <section>
             <div class="p-5-mb-4 bg-light rounded-3">
                 <div class="container-fluid py-5">
-                    <h2 class="display-5-fw-bold">EcoExchange ,find and donate items for free(home page)</h2> <br>
+                    <h2 class="display-5-fw-bold">EcoExchange, find and donate items for free(home page)</h2> <br>
                     <div class="card">
                         <div class="card-body">
                             <form class="row gy-2 gx-3 align-items-center" method="GET">
@@ -56,6 +56,7 @@
         
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for item in filter.qs %}
+    {% if item.is_approved%}
     <div class="col mb-4">
         <div class="card">
             <div class="card-body">
@@ -69,6 +70,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div><br>
 

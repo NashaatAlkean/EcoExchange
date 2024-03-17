@@ -71,13 +71,14 @@
 
                     </div>
 
-                            <div class="card-footer">
-                                <small class="text-muted">created: {{item.updated_at|naturaltime}}</small>
+                    <div class="card-footer">
+                        <small class="text-muted">created: {{item.updated_at|naturaltime}}</small>
 
-                            </div>
-                        </div>
                     </div>
-                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
             {% else %}
             <p>No items available</p>
             {% endif %}
