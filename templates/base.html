@@ -79,26 +79,30 @@
             background-color: #d32f2f;
         }
     </style>
+
 </head>
 
 <body>
     <div class="navbar">
         <h1> <a href="{% url 'home' %}">EcoExchange</a> </h1>
-        <h6>
-            <a href="{% url 'reviews' %}">Reviews</a>
-        </h6>
+
         <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
             {% if request.user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
-                <a href="{% url 'items-listing' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">All donations</a>
-                <a href="{% url 'conversation:inbox' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox</a>
-                <a href="{% url 'dashboard' %}" class="text-lg text-teal-500 hover:text-teal-700">Get help</a>
+                <a href="{% url 'items-listing' %}" class="text-lg font-semibold hover:text-gray-500">All donations</a>
                 {% if request.user.is_donor %}
                     <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
                     <a href="{% url 'manage-items' %}"  class="text-lg font-semibold hover:text-gray-500">My donations</a>
+                    <a href="{% url 'conversation:inbox' %}" class="text-lg font-semibold hover:text-gray-500">Inbox</a>
+                    <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">Get help</a>
+                    <a href="{% url 'reviews' %}">Review</a>
                 {% elif request.user.is_seeker %}
+                <a href="{% url 'conversation:inbox' %}" class="text-lg font-semibold hover:text-gray-500">Inbox</a>
                 <a href="{% url 'requested_items' %}" class="text-lg font-semibold hover:text-gray-500">My orders</a>
+                <a href="{% url 'reviews' %}">Review</a>
+                {% elif request.user.is_superuser %}
+                <a href="{% url 'admin-homepage' %}" class="text-lg font-semibold hover:text-gray-500">Home</a>
                 {% endif %}
+                <a href="{% url 'logout' %}" class="btn-logout" onclick="confirmLogout()">Logout</a>
                 </div>
             </nav>
         {% else %}
@@ -114,6 +118,11 @@
         {% block content %}
         {% endblock %}
     </div>
+    <script>
+        function confirmLogout() {
+            return confirm('Are you sure you want to logout?');
+        }
+    </script>
 </body>
 
 </html>

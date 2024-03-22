@@ -1,92 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+     
+{% extends 'base.html' %}
 
-        .header {
-            background-color: #4CAF50;
-            padding: 10px;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+{% block title %}Admin Home Page{% endblock %}
 
-        .logout-btn {
-            background-color: #f44336;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-right: 20px;
-            border-radius: 5px;
-        }
-
-        .logout-btn:hover {
-            background-color: #d32f2f;
-        }
-
-        .item-list {
-            margin-top: 20px;
-            padding: 0 20px;
-        }
-
-        .item {
-            list-style-type: none;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .product-img {
-            max-width: 100px;
-            max-height: 100px;
-            margin-right: 20px;
-        }
-
-        .item-details {
-            flex-grow: 1;
-        }
-
-        .approve-form {
-            margin-left: auto;
-        }
-
-        .approve-btn {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .approve-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
-    </div>
+{% block content %}
     <div class="item-list">
         <h1>Item List</h1>
         <ul>
@@ -112,5 +29,6 @@
             {% endfor %}
         </ul>
     </div>
-</body>
-</html>
+
+{% endblock %}
+

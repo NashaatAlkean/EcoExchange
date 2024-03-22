@@ -33,6 +33,8 @@ def reviews(request):
 
 
 def admin_homepage(request):
-    return render(request,'dashboard/admindashboard.html')
+    if not request.user.is_superuser:
+        return redirect('home')
+    return render(request,'dashboard/adminHomePage.html')
 
 

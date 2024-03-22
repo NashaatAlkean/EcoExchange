@@ -1,0 +1,125 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+
+</head>
+<body> -->
+
+    {% extends 'base.html' %} 
+    {% block content %}
+    <!-- <div class="header">
+        <button class="logout-button" onclick="window.location.href='/logout/'">Logout</button>
+    </div> -->
+
+    <style>
+        /* CSS styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .container {
+            margin: 20px auto; /* Center the container */
+            max-width: 800px; /* Set maximum width */
+            padding: 20px 20px; /* Add space between table and container margins */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+    <script>
+        function confirmDelete() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxes.length > 0) {
+                return confirm('Are you sure you want to delete selected users?');
+            } else {
+                alert('Please select at least one user to delete.');
+                return false;
+            }
+        }
+    </script>
+    <div class="container">
+        <h1>User List</h1>
+        <form action="{% url 'delete_users' %}" method="post" onsubmit="return confirmDelete()">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <!-- <th>Username</th> -->
+                        <th>Email</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <!-- <td>{{ user.username }}</td> -->
+                            <td>{{ user.email }}</td>
+                            <td><input type="checkbox" name="user_ids" value="{{ user.id }}"></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button class="delete-button" type="submit">Delete Selected Users</button>
+        </form>
+    </div>
+    {% endblock %}
+<!-- </body>
+</html> -->

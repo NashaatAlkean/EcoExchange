@@ -110,3 +110,18 @@ def is_superuser(user):
 #     item.is_approved = True  
 #     item.save()
 #     return render('items_approval.html')
+
+def user_list(request):
+    if not request.user.is_superuser:
+        return redirect('home')  # Redirect non-admin users
+    users = User.objects.filter(is_superuser=False)
+    return render(request, 'dashboard\\adminUsersList.html', {'users': users})
+
+def delete_users(request):
+    if not request.user.is_superuser:
+        return redirect('home')
+    if request.method == 'POST':
+        user_ids = request.POST.getlist('user_ids')
+        if user_ids:
+            User.objects.filter(id__in=user_ids).delete()
+    return redirect('user_list')

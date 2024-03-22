@@ -1,9 +1,10 @@
+<!-- adminDashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Design Page</title>
+    <title>Home Page</title>
     <style>
         body {
             margin: 0;
@@ -62,9 +63,8 @@
         <a href="{% url 'logout' %}" class="logout-button">Logout</a>
     </div>
     <div class="center">
-        <form action="{% url 'item_approval' %}" method="GET">
-               <button class="accept-button" type="submit">Uploading Requests</button>
-        </form>
+        {% block content %}
+        {% endblock %}
     </div>
 </body>
 </html>
