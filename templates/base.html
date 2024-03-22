@@ -72,7 +72,14 @@
         }
 
         .btn-logout {
-            background-color: #f44336;
+            background-color: #f44336; /* Red */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         .btn-logout:hover {
@@ -102,7 +109,7 @@
                 {% elif request.user.is_superuser %}
                 <a href="{% url 'admin-homepage' %}" class="text-lg font-semibold hover:text-gray-500">Home</a>
                 {% endif %}
-                <a href="{% url 'logout' %}" class="btn-logout" onclick="confirmLogout()">Logout</a>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
                 </div>
             </nav>
         {% else %}
@@ -120,7 +127,9 @@
     </div>
     <script>
         function confirmLogout() {
-            return confirm('Are you sure you want to logout?');
+            if(confirm('Are you sure you want to logout?')){
+                window.location.href = "{% url 'logout' %}";
+            }
         }
     </script>
 </body>
