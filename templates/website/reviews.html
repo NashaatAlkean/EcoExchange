@@ -201,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
         <header class="section-heading">
             <h3>All Reviews</h3>
         </header>
@@ -214,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <p>{{ review.review }}</p>
                 <div class="author">By: {{ review.user.username }}</div>
-                <div class="time" data-created="{{ review.created_at }}"></div>  <!-- Store review creation time -->
+                <div class="time" data-created="{{ review.created_at|date:'c' }}"></div>  <!-- Store review creation time -->
             </li>
         {% endfor %}
     </ul>
