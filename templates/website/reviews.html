@@ -92,17 +92,52 @@
     label:hover~input:checked~label {
         color: #cc9000;
     }
+    .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .review-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .review-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+    }
+
+    .review-item h4 {
+        margin-bottom: 5px;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .review-item .rating {
+        margin-bottom: 10px;
+    }
+
+    .review-item p {
+        margin-bottom: 0;
+        font-size: 16px;
+        color: #555;
+    }
+
+    .review-item .author {
+        font-weight: bold;
+        color: #007bff;
+    }
 </style>
 
 <div class="container">
-    <header class="section-heading">
-        <h3>All Reviews</h3>
-    </header>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <form action="" method="POST" class="review-form">
         {% csrf_token %}
         <h5>Write Your Review:</h5>
-
         <label>How Do You Rate Our website?</label>
         <br>
         <div class="rate">
@@ -137,8 +172,53 @@
         <br>
     </form>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var reviewTimes = document.querySelectorAll('.time');
+    reviewTimes.forEach(function(timeElement) {
+        var createdTime = new Date(timeElement.dataset.created);
+        var currentTime = new Date();
+        var timeDiff = Math.abs(currentTime - createdTime); // Calculate time difference in milliseconds
+        var formattedTime = formatTimeDifference(timeDiff);
+        timeElement.textContent = formattedTime;
+    });
 
+    function formatTimeDifference(timeDiff) {
+        var seconds = Math.floor(timeDiff / 1000);
+        var minutes = Math.floor(seconds / 60);
+        var hours = Math.floor(minutes / 60);
+        var days = Math.floor(hours / 24);
 
+        if (days > 0) {
+            return days + (days === 1 ? ' day ago' : ' days ago');
+        } else if (hours > 0) {
+            return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+        } else if (minutes > 0) {
+            return minutes + (minutes === 1 ? ' minute ago' : ' minutes ago');
+        } else {
+            return 'Just now';
+        }
+    }
+});
+</script>
+
+        <header class="section-heading">
+            <h3>All Reviews</h3>
+        </header>
+        
+    <ul class="review-list">
+        {% for review in reviews_list %}
+            <li class="review-item">
+                <h4>{{ review.subject }}</h4>
+                <div class="rating">
+                    Rating: {{ review.rating }}
+                </div>
+                <p>{{ review.review }}</p>
+                <div class="author">By: {{ review.user.username }}</div>
+                <div class="time" data-created="{{ review.created_at|date:'c' }}"></div>  <!-- Store review creation time -->
+            </li>
+        {% endfor %}
+    </ul>
 
 
 {% endblock content %}

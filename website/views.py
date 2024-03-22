@@ -38,3 +38,24 @@ def admin_homepage(request):
     return render(request,'dashboard/adminHomePage.html')
 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required  # Import login_required decorator
+from .forms import ReviewForm
+from .models import ReviewRating
+
+
+@login_required
+def reviews(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.user = request.user  # Assign the current user to the review
+            new_review.ip = request.META['REMOTE_ADDR']
+            new_review.save()
+            return redirect('reviews')
+    else:
+        form = ReviewForm()
+
+    reviews_list = ReviewRating.objects.all() # Query reviews and order by creation time
+    return render(request, 'website/reviews.html', {'form': form, 'reviews_list': reviews_list, 'user': request.user})
