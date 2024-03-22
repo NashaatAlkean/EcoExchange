@@ -88,12 +88,16 @@
         <p>donor dashboard</p>
         <a href="{% url 'create-add' %}" class="btn">Donate Item</a>
         <a href="{% url 'dashboard' %}" class="btn">My Donations</a>
+        <a href="{% url 'profile' request.user.id %}" class="btn">My Profile</a>
+
     </div>
     {% elif request.user.is_seeker %}
     <section >
         <p>seeker dashboard</p>
         <div class="button-container">
             <a href="{% url 'dashboard' %}" class="btn">My Orders</a>
+            <a href="{% url 'profile' request.user.id %}" class="btn">My Profile</a>
+
         </div>
     {% endif %}
     {% endblock %}
