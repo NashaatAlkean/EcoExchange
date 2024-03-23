@@ -14,7 +14,7 @@ class RegisterUserForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     full_name = forms.CharField(label='Full Name', max_length=100)
     mobile = forms.CharField(label='Mobile', max_length=20)
-    address = forms.CharField(label='Address', widget=forms.Textarea)
+    address = forms.CharField(label='Address')
     bio=forms.CharField(label="bio",widget=forms.Textarea)
     image=forms.ImageField(label="Profile picture")
     class Meta:
