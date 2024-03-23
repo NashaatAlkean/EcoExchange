@@ -22,6 +22,7 @@
         max-height: 100px;
         display: block;
         margin-bottom: 10px;
+        cursor: pointer; /* Add cursor pointer to indicate it's clickable */
     }
 
     .item-details {
@@ -53,7 +54,50 @@
         background-color: #cccccc;
         cursor: not-allowed;
     }
+
+    /* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 800px;
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
+
 <div class="item-list">
     <h1>Item List</h1>
     <ul>
@@ -61,7 +105,7 @@
         {% if not item.is_approved %}
         <li class="item">
             {% if item.image %}
-            <img class="product-img" src="{{ item.image.url }}" alt="Product Image">
+            <img class="product-img" src="{{ item.image.url }}" alt="Product Image" onclick="openModal('{{ item.image.url }}')">
             {% endif %}
             <div class="item-details">
                 <p>Title: {{ item.title }}</p>
@@ -81,4 +125,29 @@
         {% endfor %}
     </ul>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImg" src="" alt="Modal Image">
+    </div>
+</div>
+
+<script>
+    // JavaScript Functions
+    function openModal(imgUrl) {
+        var modal = document.getElementById('myModal');
+        var modalImg = document.getElementById("modalImg");
+        modal.style.display = "block";
+        modalImg.src = imgUrl;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = "none";
+    }
+</script>
+
 {% endblock %}
