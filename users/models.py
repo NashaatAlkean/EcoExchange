@@ -16,6 +16,13 @@ class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
 
     date_modified=models.DateTimeField(User,auto_now=True)
+    full_name = models.CharField(max_length=100, null=True)
+    address = models.CharField(max_length=100, null=True)
+    mobile=models.CharField(max_length=15, null=True)
+    bio = models.TextField(null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    
+
     def __str__(self):
         return self.user.email
     

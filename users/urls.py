@@ -10,6 +10,8 @@ urlpatterns=[
     path('delete-users/', views.delete_users, name='delete_users'),  # Define the URL pattern for delete_users view
     path('profile/<int:pk>',views.profile,name='profile'),
     path('update_user/',views.update_user,name='update_user'),
+    path('update_profile/',views.update_profile,name='update_profile'),
+
 
 
 ]
