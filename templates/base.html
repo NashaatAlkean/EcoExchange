@@ -74,7 +74,14 @@
         }
 
         .btn-logout {
-            background-color: #f44336;
+            background-color: #f44336; /* Red */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         .btn-logout:hover {
@@ -91,6 +98,8 @@
         <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
             {% if request.user.is_authenticated %}
                 <a href="{% url 'items-listing' %}" class="text-lg font-semibold hover:text-gray-500">All donations</a>
+                <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">Dashboard</a>
+
                 {% if request.user.is_donor %}
                     <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
                     <a href="{% url 'manage-items' %}"  class="text-lg font-semibold hover:text-gray-500">My donations</a>
@@ -104,7 +113,7 @@
                 {% elif request.user.is_superuser %}
                 <a href="{% url 'admin-homepage' %}" class="text-lg font-semibold hover:text-gray-500">Home</a>
                 {% endif %}
-                <a href="{% url 'logout' %}" class="btn-logout" onclick="confirmLogout()">Logout</a>
+                <button class="btn-logout" onclick="confirmLogout()">Logout</button>
                 </div>
             </nav>
         {% else %}
@@ -117,12 +126,17 @@
     </div>
     <div class="container">
 
-        {% block content %}
-        {% endblock %}
+
+
+            
+            {% block content %}
+            {% endblock %}
     </div>
     <script>
         function confirmLogout() {
-            return confirm('Are you sure you want to logout?');
+            if(confirm('Are you sure you want to logout?')){
+                window.location.href = "{% url 'logout' %}";
+            }
         }
     </script>
 </body>

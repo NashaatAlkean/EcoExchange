@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 
 from items.models import Items
-from .models import User
-from .form import RegisterUserForm
+from .models import User,Profile
+from .form import RegisterUserForm,ProfileForm
 from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -125,3 +125,51 @@ def delete_users(request):
         if user_ids:
             User.objects.filter(id__in=user_ids).delete()
     return redirect('user_list')
+
+
+def profile(request,pk):
+    if request.user.is_authenticated:
+        profile=Profile.objects.get(user_id=pk)
+
+        return render(request,"users/profile.html",{"profile":profile})
+    else:
+        messages.success(request,("You have to log in"))
+        return redirect('dashboard')
+    
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user=User.objects.get(id=request.user.id)
+        form=RegisterUserForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            login(request,current_user)
+            messages.success(request,("Your information has been updated"))
+            return redirect('dashboard')
+        return render(request,"users/update_user.html",{'form':form})
+
+    else:
+        messages.success(request,("You have to log in"))
+        return redirect('dashboard')
+    
+
+def update_profile(request):
+    if request.user.is_authenticated:
+        current_user=User.objects.get(id=request.user.id)
+        profile_user=Profile.objects.get(user__id=request.user.id)
+        profile_form=ProfileForm(request.POST or None,request.FILES or None, instance=profile_user)
+        if profile_form.is_valid():
+            profile_form.save()
+            login(request,current_user)
+            messages.success(request,("Your information has been updated"))
+            return redirect('dashboard')
+        return render(request,"users/update_profile.html",{'profile_form':profile_form})
+
+    else:
+        messages.success(request,("You have to log in"))
+        return redirect('dashboard')
+    
+
+
+    

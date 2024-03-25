@@ -1,34 +1,156 @@
-     
 {% extends 'base.html' %}
 
 {% block title %}Admin Home Page{% endblock %}
 
 {% block content %}
-    <div class="item-list">
-        <h1>Item List</h1>
-        <ul>
-            {% for item in items %}
-            {% if not item.is_approved %}
-                <li class="item">
-                    
-                    {% if item.image %}
-                    <img class="product-img" src="{{ item.image.url }}" alt="Product Image">
-                    {% endif %} 
-                    <div class="item-details">
-                        <p>Title: {{ item.title }}</p>
-                        <p>descreption: {{ item.descreption }}</p>
-                        <p>Email: {{ item.user.email }}</p>
-                    </div>
-                    <form class="approve-form" action="{% url 'approve_item' item.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="approve-btn">Approve</button>
-                    </form>
-                    
-                </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+<style>
+    /* CSS Styles */
+    .item-list {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        list-style: none;
+    }
+
+    .product-img {
+        max-width: 100px;
+        max-height: 100px;
+        display: block;
+        margin-bottom: 10px;
+        cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+    }
+
+    .item-details {
+        margin-bottom: 10px;
+    }
+
+    .action-form {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .approve-btn,
+    .decline-btn {
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .approve-btn:hover,
+    .decline-btn:hover {
+        background-color: #45a049;
+    }
+
+    .approve-btn:disabled,
+    .decline-btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 800px;
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<div class="item-list">
+    <h1>Item List</h1>
+    <ul>
+        {% for item in items %}
+        {% if not item.is_approved %}
+        <li class="item">
+            {% if item.image %}
+            <img class="product-img" src="{{ item.image.url }}" alt="Product Image" onclick="openModal('{{ item.image.url }}')">
+            {% endif %}
+            <div class="item-details">
+                <p>Title: {{ item.title }}</p>
+                <p>Description: {{ item.descreption }}</p> <!-- Corrected typo -->
+                <p>Email:</p>
+            
+                <a href="{%url 'profile' item.user.id%}"><p>{{ item.user }}</p></a>           
+            
+            </div>
+            <form class="action-form" action="{% url 'approve_item' item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="approve-btn">Approve</button>
+            </form>
+            <form class="action-form" action="{% url 'decline_item' item.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="decline-btn">Decline</button>
+            </form>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImg" src="" alt="Modal Image">
     </div>
+</div>
+
+<script>
+    // JavaScript Functions
+    function openModal(imgUrl) {
+        var modal = document.getElementById('myModal');
+        var modalImg = document.getElementById("modalImg");
+        modal.style.display = "block";
+        modalImg.src = imgUrl;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = "none";
+    }
+</script>
 
 {% endblock %}
-

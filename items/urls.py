@@ -11,6 +11,7 @@ urlpatterns=[
     path('requested_items/',views.requested_items,name='requested_items'),
     path('item-approval/', views.item_approval, name='item_approval'),  # URL for item approval list
     path('approve-item/<int:item_id>/', views.approve_item, name='approve_item'),  # URL for approving item
+    path('decline-item/<int:item_id>/', views.decline_item, name='decline_item'),  # URL for approving item
 
 ]
 

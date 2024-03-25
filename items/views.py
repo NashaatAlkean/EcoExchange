@@ -18,7 +18,7 @@ def create_item(request):
                 var=form.save(commit=False)
                 var.user =request.user
                 var.save()
-                messages.info(request,'New item has been published..')
+                messages.info(request,'Your ad has been send to admin approval!')
                 return redirect('dashboard')
             else:
                 messages.warning(request,'something wont wrong')
@@ -45,7 +45,7 @@ def update_item(request,pk):
             #var=form.save(commit=False)
             #var.user =request.user
             #var.save()
-            messages.info(request,'Your items info has updated.')
+            messages.info(request,'Your updated ad has been send to admin approval!.')
             return redirect('dashboard')
         else:
             messages.warning(request,'something wont wrong')
@@ -111,5 +111,14 @@ def  approve_item(request, item_id):
     item.save()
     return redirect('item_approval')
 
+
+@login_required
+def decline_item(request, item_id):
+    if not request.user.is_superuser:
+        return redirect('home')  # Redirect non-admin users
+
+    item = Items.objects.get(id=item_id)
+    item.delete()  # Delete the item from the database
+    return redirect('item_approval')
 
 
