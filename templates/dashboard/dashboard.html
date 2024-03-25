@@ -55,9 +55,7 @@
                 <div class="col-4 icon-item">
                     <a href="{% url 'conversation:inbox' %}"><i class="fas fa-inbox"></i><br>Inbox</a>
                 </div>
-                <div class="col-4 icon-item">
-                    <a href="{% url 'dashboard' %}"><i class="fas fa-question-circle"></i><br>Get help</a>
-                </div>
+                
                 <div class="col-4 icon-item">
                     <a href="{% url 'reviews' %}"><i class="fas fa-star"></i><br>Reviews</a>
                 </div>
@@ -70,6 +68,9 @@
                 <div class="col-4 icon-item">
                     <a href="{% url 'requested_items' %}"><i class="fas fa-box"></i><br>My orders</a>
                 </div>
+                <div class="col-4 icon-item">
+                    <a href="{% url 'dashboard' %}"><i class="fas fa-question-circle"></i><br>Get help</a>
+                </div>
                 
                 {% elif request.user.is_donor %}
                 <div class="col-4 icon-item" >
@@ -78,10 +79,17 @@
                 <div class="col-4 icon-item">
                     <a href="{% url 'manage-items' %}"><i class="fas fa-donate"></i><br>My donations</a>
                 </div>
+                <div class="col-4 icon-item">
+                    <a href="{% url 'dashboard' %}"><i class="fas fa-question-circle"></i><br>Get help</a>
+                </div>
                 {% elif request.user.is_superuser %}
                 <div class="col-4 icon-item">
                 <a href="{% url 'admin-homepage' %}"><i class="fas fa-home"></i><br>Admin Home page</a>
                 </div>
+                <div class="col-4 icon-item">
+                    <a href="{% url 'dashboard' %}"><i class="fas fa-headset"></i><br>Technical Support</a>
+                </div>
+                
                 {% endif %}
             </div>
         </div>
