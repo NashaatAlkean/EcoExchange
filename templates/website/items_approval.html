@@ -109,8 +109,11 @@
             {% endif %}
             <div class="item-details">
                 <p>Title: {{ item.title }}</p>
-                <p>Description: {{ item.description }}</p> <!-- Corrected typo -->
-                <p>Email: {{ item.user.email }}</p>
+                <p>Description: {{ item.descreption }}</p> <!-- Corrected typo -->
+                <p>Email:</p>
+            
+                <a href="{%url 'profile' item.user.id%}"><p>{{ item.user }}</p></a>           
+            
             </div>
             <form class="action-form" action="{% url 'approve_item' item.id %}" method="post">
                 {% csrf_token %}
