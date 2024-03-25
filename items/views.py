@@ -112,4 +112,13 @@ def  approve_item(request, item_id):
     return redirect('item_approval')
 
 
+@login_required
+def decline_item(request, item_id):
+    if not request.user.is_superuser:
+        return redirect('home')  # Redirect non-admin users
+
+    item = Items.objects.get(id=item_id)
+    item.delete()  # Delete the item from the database
+    return redirect('item_approval')
+
 
