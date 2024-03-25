@@ -6,76 +6,92 @@
 {% block content %}
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        background-color: #ECE5DD;
     }
 
     .chat-container {
         max-width: 800px;
         margin: 0 auto;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+    }
+
+    .messages {
+        overflow-y: auto;
+        flex-grow: 1;
+        margin-bottom: 20px;
     }
 
     .message {
+        margin-bottom: 12px;
         padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        max-width: 70%;
+        border-radius: 8px;
+        max-width: 60%;
+        word-wrap: break-word;
     }
 
     .my-message {
-        background-color: #DBEAFE;
-        align-self: flex-end;
+        background-color: #DCF8C6;
+        margin-left: auto;
+        text-align: right;
     }
 
     .other-message {
-        background-color: #F3F4F6;
-        align-self: flex-start;
+        background-color: #ECE5DD;
+        margin-right: auto;
+        text-align: left;
     }
 
     .message p {
-        margin: 5px 0;
-    }
-
-    .message p strong {
-        font-weight: bold;
+        margin: 0;
+        color: black;
     }
 
     .message p.time {
         font-size: 0.8rem;
-        color: #6B7280;
+        color: #555;
+        text-align: right;
+        margin-top: 4px;
     }
 
     .message-form {
-        margin-top: 20px;
+        display: flex;
     }
 
     .message-form textarea {
-        width: calc(100% - 100px);
+        flex: 1;
         padding: 10px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 20px;
         resize: none;
+        margin-right: 10px;
+        outline: none;
     }
 
     .message-form button {
-        width: 100px;
-        padding: 10px;
-        background-color: #3B82F6;
-        color: #fff;
+        background-color: #075E54;
+        color: white;
         border: none;
-        border-radius: 5px;
+        padding: 10px 20px;
+        border-radius: 20px;
         cursor: pointer;
+        transition: background-color 0.3s;
     }
 
     .message-form button:hover {
-        background-color: #2563EB;
+        background-color: #128C7E;
     }
 </style>
 
 <div class="chat-container">
-    <h1 class="mb-6 text-3xl">Chat</h1>
-
-    <div class="space-y-6">
+    <div class="messages">
         {% for message in conversation.messages.all %}
             <div class="message {% if message.created_by == request.user %}my-message{% else %}other-message{% endif %}">
                 <p><strong>{{ message.created_by.email }}</strong></p>
@@ -87,9 +103,7 @@
 
     <form method="post" action="." class="message-form">
         {% csrf_token %}
-
-        {{ form.as_p }}
-
+        <textarea name="content" placeholder="Type a message..."></textarea>
         <button type="submit">Send</button>
     </form>
 </div>
