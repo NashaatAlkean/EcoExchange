@@ -16,6 +16,10 @@
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign In</button>
     <hr class="my-4">
+     
+    <div class="mb-3">
+        <a href="{% url 'password_reset' %}" class="text-muted">Forgot password?</a>
+    </div>
         <small class="text-muted">Register as a Donor <a href="{%  url 'register-donor' %}">Sign Up</a></small><br>
         <small class="text-muted">Register as a Seeker <a href="{% url 'register-seeker' %}">Sign Up</a></small>
 
