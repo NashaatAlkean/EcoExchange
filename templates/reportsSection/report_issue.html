@@ -38,9 +38,34 @@
 </style>
 
 <h2>Report an Issue</h2>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" id="reportForm" onsubmit="return validateForm()">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Submit</button>
 </form>
+
+<script>
+function validateForm() {
+    // Get all input fields and textarea
+    var inputs = document.querySelectorAll('input[type="text"], textarea');
+    var isValid = true;
+
+    // Check if all input fields and textarea are filled
+    inputs.forEach(function(input) {
+        if (input.value.trim() === '') {
+            isValid = false;
+            return;
+        }
+    });
+
+    // Show popup message if form is valid
+    if (isValid) {
+        alert("Report submitted successfully!");
+        return true; // Allow form submission
+    } else {
+        alert("Please fill out all fields.");
+        return false; // Prevent form submission
+    }
+}
+</script>
 {% endblock %}
