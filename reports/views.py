@@ -39,7 +39,7 @@ def delete_report(request, report_id):
     
     report = Report.objects.get(id=report_id)
     report.delete()
-    return JsonResponse({'message': 'Report deleted'})
+    return redirect('view_reports')
 
 @login_required
 @require_POST
