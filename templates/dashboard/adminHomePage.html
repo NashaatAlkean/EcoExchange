@@ -40,14 +40,19 @@
         height: auto; /* Maintain aspect ratio */
     }
 </style>
-    <div class="center">
-        <form action="{% url 'item_approval' %}" method="GET">
-            <button class="accept-button" type="submit"><img src="\media\images\uploading.png" alt="Uploading Requests"></button>
-            <p class="button-text">Uploading Requests</p>
-        </form>
-        <form action="{% url 'user_list' %}" method="GET">
-            <button class="accept-button" type="submit"><img src="\media\images\user_delete.png" alt="Users List"></button>
-            <p class="button-text">Delete Users</p>
-        </form>
-    </div>
+<div class="center">
+    <form action="{% url 'item_approval' %}" method="GET">
+        <button class="accept-button" type="submit"><img src="\media\images\uploading.png" alt="Uploading Requests"></button>
+        <p class="button-text">Uploading Requests</p>
+    </form>
+    <form action="{% url 'user_list' %}" method="GET">
+        <button class="accept-button" type="submit"><img src="\media\images\user_delete.png" alt="Users List"></button>
+        <p class="button-text">Delete Users</p>
+    </form>
+    <form action="{% url 'view_reports' %}" method="GET"> 
+        <button class="accept-button" type="submit"><img src="\media\images\reports.png" alt="Reports List"></button>
+        <p class="button-text">View Reports</p>
+    </form>
+</div>
+
 {% endblock %}

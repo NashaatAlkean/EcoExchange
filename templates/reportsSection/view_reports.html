@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  /* Custom CSS for the reports page */
+  h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .report-details {
+    display: none;
+    /* Initially hide details */
+    margin-top: 10px;
+  }
+
+  .report-title {
+    cursor: pointer;
+  }
+
+  .resolved {
+    color: green; /* Display resolved reports with green color */
+    font-weight: bold; /* Optional: Make the text bold for emphasis */
+  }
+
+  li {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+
+  .button-group {
+    margin-top: 10px;
+    display: flex; /* Display buttons inline */
+    align-items: center; /* Center align items vertically */
+  }
+
+  .button-group form {
+    margin-right: 10px; /* Add some spacing between buttons */
+  }
+</style>
+
+{% if reports %}
+<h2>Reports</h2>
+<ul>
+  {% for report in reports %}
+  <li class="{% if report.read %}read-report{% endif %}">
+    <h3 class="report-title">{{ report.title }}{% if report.resolved %} <span class="resolved">(Resolved)</span>{% endif %}</h3>
+    <div class="report-details">
+      <p>{{ report.description }}</p>
+      {% if report.image %}
+      <img src="{{ report.image.url }}" alt="Report Image">
+      {% endif %}
+      <p>Submitted by: {{ report.user.username }}</p>
+      <p>Submitted at: {{ report.created_at }}</p>
+      <div class="button-group">
+        <form action="{% url 'delete_report' report.id %}" method="post" onsubmit="return confirmDelete()">
+          {% csrf_token %}
+          <button>Delete</button>
+        </form>
+        <form id="resolving_btn" action="{% url 'resolve_report' report.id %}" method="post">
+          {% csrf_token %}
+          <button>{% if report.resolved %}Mark as Unresolved{% else %}Mark as Resolved{% endif %}</button>
+        </form>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No reports available.</p>
+{% endif %}
+
+<script>
+  document.querySelectorAll('.report-title').forEach(title => {
+    title.addEventListener('click', () => {
+      // Toggle visibility of report details when title is clicked
+      title.nextElementSibling.classList.toggle('report-details');
+    });
+  });
+
+  function confirmDelete() {
+    return confirm('Are you sure you want to delete this report?');
+  }
+</script>
+{% endblock %}

@@ -69,7 +69,7 @@
                     <a href="{% url 'requested_items' %}"><i class="fas fa-box"></i><br>My orders</a>
                 </div>
                 <div class="col-4 icon-item">
-                    <a href="{% url 'dashboard' %}"><i class="fas fa-question-circle"></i><br>Get help</a>
+                    <a href="{% url 'report_issue' %}"><i class="fas fa-question-circle"></i><br>Report</a>
                 </div>
                 
                 {% elif request.user.is_donor %}
@@ -80,7 +80,7 @@
                     <a href="{% url 'manage-items' %}"><i class="fas fa-donate"></i><br>My donations</a>
                 </div>
                 <div class="col-4 icon-item">
-                    <a href="{% url 'dashboard' %}"><i class="fas fa-question-circle"></i><br>Get help</a>
+                    <a href="{% url 'report_issue' %}"><i class="fas fa-question-circle"></i><br>Report</a>
                 </div>
                 {% elif request.user.is_superuser %}
                 <div class="col-4 icon-item">

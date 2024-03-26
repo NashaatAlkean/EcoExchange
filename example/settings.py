@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'website',
     'django_filters',
     'conversation',
+    'reports',
     
 
 ]
