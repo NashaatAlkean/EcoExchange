@@ -6,33 +6,43 @@
 {% block content %}
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background-color: #ECE5DD; /* WhatsApp background color */
     }
 
     .inbox-container {
         max-width: 800px;
-        margin: 0 auto;
+        margin: 20px auto;
         padding: 20px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        color: #075E54; /* WhatsApp theme color */
     }
 
     .conversation {
-        padding: 20px;
-        margin-bottom: 20px;
-        background-color: #f4f4f4;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+        background-color: white;
         border-radius: 10px;
         display: flex;
         align-items: center;
+        border-bottom: 1px solid #f2f2f2;
+        transition: background-color 0.3s ease;
     }
 
     .conversation:hover {
-        background-color: #e0e0e0;
+        background-color: #f8f8f8;
     }
 
     .conversation img {
-        width: 80px;
-        height: 80px;
+        width: 50px; /* Smaller image size */
+        height: 50px; /* Keep aspect ratio */
         border-radius: 50%;
-        margin-right: 20px;
+        margin-right: 15px;
     }
 
     .conversation-info {
@@ -40,15 +50,18 @@
     }
 
     .conversation-info p {
-        margin: 5px 0;
+        margin: 2px 0;
+        color: #4a4a4a; /* Darker text for better readability */
     }
 
     .conversation-info p strong {
         font-weight: bold;
+        color: #075E54; /* WhatsApp theme color */
     }
 
     .conversation-info p.date {
-        color: #888;
+        font-size: 0.9em;
+        color: #6E6E6E; /* Lighter color for the date */
     }
 </style>
 

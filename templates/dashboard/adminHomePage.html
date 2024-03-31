@@ -5,41 +5,72 @@
 {% block content %}
 
 <style>
-    /* CSS styling */
+    /* General Page Styles */
     body {
         margin: 0;
-        font-family: Arial, sans-serif;
-    }
-    .button-text{
-        text-align: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
     }
 
+    /* Centering and Styling for Buttons */
     .center {
         display: flex;
-        align-items: center; /* Align items vertically */
-        justify-content: center; /* Align items horizontally */
-        height: 80vh;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap; /* Allows buttons to wrap on small screens */
+        gap: 20px; /* Space between buttons */
+        padding: 40px 0; /* Vertical padding for the button container */
     }
 
     .accept-button {
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 30px; /* Add margin between buttons */
+        background-color: #ffffff;
+        border: 2px solid #dcdcdc;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        text-align: center;
+        width: 220px; /* Fixed width for uniform button sizes */
     }
 
     .accept-button:hover {
-        background-color: #a7dcff;
-        transform: scale(1.1);
+        background-color: #e8f0fe;
+        border-color: #c2e0ff;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-3px);
     }
 
+    .accept-button:active {
+        transform: translateY(1px);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Uniform Image Sizes */
     .accept-button img {
-        width: 200px; /* Adjust the width of the image */
-        height: auto; /* Maintain aspect ratio */
+        width: 100px; /* Fixed width for all images */
+        height: 100px; /* Fixed height for all images */
+        object-fit: cover; /* Ensures the image covers the area without distortion */
+        margin-bottom: 8px;
+    }
+
+    /* Text Style for Button Labels */
+    .button-text {
+        margin-top: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    @media (max-width: 768px) {
+        .center {
+            flex-direction: column;
+        }
     }
 </style>
+
+
 <div class="center">
     <form action="{% url 'item_approval' %}" method="GET">
         <button class="accept-button" type="submit"><img src="\media\images\uploading.png" alt="Uploading Requests"></button>

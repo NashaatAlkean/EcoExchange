@@ -4,17 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Fonts link for Roboto font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS link -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-
+    
     <title>Dashboard - EcoExchange</title>
     <style>
+        /* Set the body font to Roboto, imported from Google Fonts */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #f2f2f2;
             margin: 0;
             padding: 0;
         }
 
+        /* Navbar styles */
         .navbar {
             background-color: #4CAF50;
             padding: 10px;
@@ -24,11 +31,14 @@
             align-items: center;
         }
 
+        /* Set navbar header font weight to bold (700) */
         .navbar h1 {
             margin: 0;
             font-size: 24px;
+            font-weight: 700; /* Roboto font-weight */
         }
 
+        /* Navbar list styles */
         .navbar ul {
             list-style-type: none;
             margin: 0;
@@ -36,6 +46,7 @@
             display: flex;
         }
 
+        /* Navbar item styles */
         .navbar li {
             margin-right: 10px;
         }
@@ -44,6 +55,7 @@
             margin-right: 0;
         }
 
+        /* Navbar link styles */
         .navbar a {
             color: white;
             text-decoration: none;
@@ -52,10 +64,12 @@
             transition: background-color 0.3s;
         }
 
+        /* Navbar link hover effect */
         .navbar a:hover {
             background-color: #3e8e41;
         }
 
+        /* Main content container styles */
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -65,14 +79,17 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Heading styles */
         h2 {
             margin-top: 0;
         }
 
+        /* Paragraph styles */
         p {
             margin-bottom: 20px;
         }
 
+        /* Logout button styles */
         .btn-logout {
             background-color: #f44336; /* Red */
             color: white;
@@ -82,14 +99,17 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            font-weight: 700; /* Roboto font-weight */
         }
 
+        /* Logout button hover effect */
         .btn-logout:hover {
             background-color: #d32f2f;
         }
     </style>
 
 </head>
+
 
 <body>
     <div class="navbar">
@@ -101,15 +121,15 @@
                 <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">Dashboard</a>
 
                 {% if request.user.is_donor %}
-                    <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
+                    <!-- <a href="{% url 'create-add' %}" class="text-lg font-semibold hover:text-gray-500">Donate item</a>
                     <a href="{% url 'manage-items' %}"  class="text-lg font-semibold hover:text-gray-500">My donations</a>
                     <a href="{% url 'conversation:inbox' %}" class="text-lg font-semibold hover:text-gray-500">Inbox</a>
                     <a href="{% url 'dashboard' %}" class="text-lg font-semibold hover:text-gray-500">Get help</a>
-                    <a href="{% url 'reviews' %}">Review</a>
+                    <a href="{% url 'reviews' %}">Review</a> -->
                 {% elif request.user.is_seeker %}
-                <a href="{% url 'conversation:inbox' %}" class="text-lg font-semibold hover:text-gray-500">Inbox</a>
+                <!-- <a href="{% url 'conversation:inbox' %}" class="text-lg font-semibold hover:text-gray-500">Inbox</a>
                 <a href="{% url 'requested_items' %}" class="text-lg font-semibold hover:text-gray-500">My orders</a>
-                <a href="{% url 'reviews' %}">Review</a>
+                <a href="{% url 'reviews' %}">Review</a> -->
                 {% elif request.user.is_superuser %}
                 <a href="{% url 'admin-homepage' %}" class="text-lg font-semibold hover:text-gray-500">Home</a>
                 {% endif %}

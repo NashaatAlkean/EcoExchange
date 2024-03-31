@@ -2,18 +2,29 @@
 {% block content %}
 <style>
     /* Custom CSS for the report form */
+    body {
+        font-family: Arial, sans-serif;
+    }
     h2 {
         color: #333;
         font-size: 24px;
+        text-align: center;
         margin-bottom: 20px;
     }
     form {
         max-width: 400px;
-        margin: 0 auto;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
     label {
         display: block;
         margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
     }
     input[type="text"],
     textarea {
@@ -23,49 +34,52 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         box-sizing: border-box;
+        font-size: 14px;
     }
     button[type="submit"] {
         padding: 10px 20px;
-        background-color: #007bff;
+        background-color: #4CAF50; /* Changed to green */
         color: #fff;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
+        text-transform: uppercase;
     }
     button[type="submit"]:hover {
-        background-color: #0056b3;
+        background-color: #45a049;
     }
 </style>
 
 <h2>Report an Issue</h2>
 <form method="post" enctype="multipart/form-data" id="reportForm" onsubmit="return validateForm()">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit</button>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
 </form>
 
 <script>
-function validateForm() {
-    // Get all input fields and textarea
-    var inputs = document.querySelectorAll('input[type="text"], textarea');
-    var isValid = true;
+    function validateForm() {
+        // Get all input fields and textarea
+        var inputs = document.querySelectorAll('input[type="text"], textarea');
+        var isValid = true;
 
-    // Check if all input fields and textarea are filled
-    inputs.forEach(function(input) {
-        if (input.value.trim() === '') {
-            isValid = false;
-            return;
+        // Check if all input fields and textarea are filled
+        inputs.forEach(function(input) {
+            if (input.value.trim() === '') {
+                isValid = false;
+                return;
+            }
+        });
+
+        // Show popup message if form is valid
+        if (isValid) {
+            alert("Report submitted successfully!");
+            return true; // Allow form submission
+        } else {
+            alert("Please fill out all fields.");
+            return false; // Prevent form submission
         }
-    });
-
-    // Show popup message if form is valid
-    if (isValid) {
-        alert("Report submitted successfully!");
-        return true; // Allow form submission
-    } else {
-        alert("Please fill out all fields.");
-        return false; // Prevent form submission
     }
-}
 </script>
 {% endblock %}

@@ -4,57 +4,105 @@
   /* Custom CSS for the reports page */
   h2 {
     color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
   }
 
   ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
 
   .report-details {
-    display: none;
-    /* Initially hide details */
+    display: none; /* Initially hide details */
     margin-top: 10px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
   }
 
   .report-title {
     cursor: pointer;
+    margin: 0;
+    padding: 15px;
+    background-color: #e9ecef;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .report-title:hover {
+    background-color: #dde9ef;
   }
 
   .resolved {
-    color: green; /* Display resolved reports with green color */
-    font-weight: bold; /* Optional: Make the text bold for emphasis */
+    color: #28a745; /* Green color for resolved reports */
+    font-weight: bold; /* Bold text for emphasis */
   }
 
   li {
     margin-bottom: 20px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  li:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
 
   img {
     max-width: 100%;
     height: auto;
+    border-radius: 5px;
     margin-top: 10px;
   }
 
   p {
-    margin: 5px 0;
+    margin: 10px 0;
   }
 
   .button-group {
-    margin-top: 10px;
-    display: flex; /* Display buttons inline */
-    align-items: center; /* Center align items vertically */
+    display: flex; /* Align buttons side by side */
+    gap: 10px; /* Add space between buttons */
   }
 
-  .button-group form {
-    margin-right: 10px; /* Add some spacing between buttons */
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #28a745; /* Green background for all buttons */
+    color: white; /* White text color */
+  }
+
+  button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+
+  .btn-delete {
+    background-color: #dc3545; /* Red background for delete buttons */
+  }
+
+  .btn-delete:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+
+  /* Responsive design adjustments */
+  @media (max-width: 768px) {
+    .button-group {
+      flex-direction: column; /* Stack buttons vertically on small screens */
+    }
+
+    .button-group button {
+      width: 100%; /* Full width buttons on small screens */
+    }
   }
 </style>
+
 
 {% if reports %}
 <h2>Reports</h2>
