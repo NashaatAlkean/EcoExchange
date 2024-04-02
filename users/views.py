@@ -23,7 +23,7 @@ def register_seeker(request):
             #the username became automaticly the email
             var.save()
             #Activatee.objects.create(user=var)
-            messages.info(request,'Your acoount has been created...')
+            messages.info(request,'Your account has been created...')
             return redirect('login')
         else:
             messages.warning(request,'something went wrong')
@@ -45,10 +45,10 @@ def register_donor(request):
             var.username=var.email
             var.save() 
             #Donoractive.objects.create(user=var)
-            messages.info(request,'Your acoount has been created,please login')
+            messages.info(request,'Your account has been created, please login')
             return redirect('login')
         else:
-            messages.warning(request,'something went wrong')
+            messages.warning(request,'Something went wrong')
             return redirect('register-donor')
     else:
         form=RegisterUserForm()
@@ -65,12 +65,6 @@ def login_user(request):
         user=authenticate(request,username=email,password=password)
         if user is not None and user.is_active:
             login(request,user)
-            # if request.user.is_seeker:
-            #     return redirect('seeker-dashboard')
-            # elif request.user.is_seeker:
-            #     return redirect('donor-dashboard')
-            # else:
-            #     return redirect('login')
             if user.is_superuser:
                 return redirect('admin-homepage')  # Redirect to the view to select a user to impersonate
 
@@ -86,7 +80,7 @@ def login_user(request):
 #user logout
 def logout_user(request):
     logout(request)
-    messages.info(request,'your session has ended')
+    messages.info(request,'Your session has ended')
     return redirect('home')
 
 
