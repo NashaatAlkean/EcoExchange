@@ -23,10 +23,10 @@ def register_seeker(request):
             #the username became automaticly the email
             var.save()
             #Activatee.objects.create(user=var)
-            messages.info(request,'Your acoount has been created...')
+            messages.info(request,'Your account has been created...')
             return redirect('login')
         else:
-            messages.warning(request,'something went wrong')
+            messages.warning(request,'Something went wrong')
             return redirect('register-seeker')
     else:
         form=RegisterUserForm()
@@ -45,10 +45,10 @@ def register_donor(request):
             var.username=var.email
             var.save() 
             #Donoractive.objects.create(user=var)
-            messages.info(request,'Your acoount has been created,please login')
+            messages.info(request,'Your account has been created, please login')
             return redirect('login')
         else:
-            messages.warning(request,'something went wrong')
+            messages.warning(request,'Something went wrong')
             return redirect('register-donor')
     else:
         form=RegisterUserForm()
@@ -76,7 +76,7 @@ def login_user(request):
 
             return redirect('home')
         else:
-            messages.warning(request,'somthing went wrong')
+            messages.warning(request,'Somthing went wrong')
             return redirect('login')
     else:
         return render(request,'users/login.html')
@@ -86,7 +86,7 @@ def login_user(request):
 #user logout
 def logout_user(request):
     logout(request)
-    messages.info(request,'your session has ended')
+    messages.info(request,'Your session has ended')
     return redirect('home')
 
 
