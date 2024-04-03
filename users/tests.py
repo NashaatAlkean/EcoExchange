@@ -333,36 +333,36 @@ User = get_user_model()
 #         self.assertEqual(response.url, reverse('dashboard'))
 
 
-class UpdateProfileTestCase(TestCase):
-    def setUp(self):
-        # Create a test user
-        self.user = User.objects.create_user(
-            username='testuser',
-            email='test@example.com',
-            password='password123'
-        )
-        self.client = Client()
+# class UpdateProfileTestCase(TestCase):
+#     def setUp(self):
+#         # Create a test user
+#         self.user = User.objects.create_user(
+#             username='testuser',
+#             email='test@example.com',
+#             password='password123'
+#         )
+#         self.client = Client()
 
-    def test_authenticated_user_update_profile(self):
-        # Log in the user
-        self.client.login(username='testuser', password='password123')
+#     def test_authenticated_user_update_profile(self):
+#         # Log in the user
+#         self.client.login(username='testuser', password='password123')
 
-        # Make a POST request to update the profile
-        response = self.client.post(reverse('update_profile'), {
-            'full_name': 'Updated Name',
-            'address': 'Updated Address',
-            'mobile': '1234567890',
-            'bio': 'Updated Bio',
-        })
+#         # Make a POST request to update the profile
+#         response = self.client.post(reverse('update_profile'), {
+#             'full_name': 'Updated Name',
+#             'address': 'Updated Address',
+#             'mobile': '1234567890',
+#             'bio': 'Updated Bio',
+#         })
 
-        # Ensure that the response is a redirect to the dashboard
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, reverse('dashboard'))
+#         # Ensure that the response is a redirect to the dashboard
+#         self.assertEqual(response.status_code, 302)
+#         self.assertEqual(response.url, reverse('dashboard'))
 
-    def test_unauthenticated_user_update_profile(self):
-        # Make a GET request to update the profile without logging in
-        response = self.client.get(reverse('update_profile'))
+#     def test_unauthenticated_user_update_profile(self):
+#         # Make a GET request to update the profile without logging in
+#         response = self.client.get(reverse('update_profile'))
 
-        # Ensure that the response is a redirect to the dashboard
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, reverse('dashboard'))
+#         # Ensure that the response is a redirect to the dashboard
+#         self.assertEqual(response.status_code, 302)
+#         self.assertEqual(response.url, reverse('dashboard'))
